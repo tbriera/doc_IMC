@@ -3,3 +3,5 @@ main.bbl
 main.blg
 main.log
 main.synctex.gz
+main.fdb_latexmk
+main.fls
