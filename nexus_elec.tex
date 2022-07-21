@@ -6,7 +6,7 @@ IMACLIM-R is a twelve region, recursive, hybrid general equilibrium model that i
 \section{Introduction}
 The electricity sector is receiving special attention under the low-carbon transition, as it is a massive lever for reducing greenhouse gas (GHG) emissions. Electricity generation accounted for 44\% of global CO2 emissions in 2019. Climate change mitigation undoubtedly goes hand in hand with a technological shift to renewable energy. In fact, the emissions of the electricity sector come from the combustion of fossil resources, namely coal, oil and gas, in existing power plants. Given the inertia of capital in this sector (power plants are expected to operate for decades), today's power generation capabilities are determined by the capacity built in the past. Therefore, an accurate representation of power capacity investment decisions is key to capturing current and future developments in the electricity sector.
 
-\paragraph{A roadmap to model the electricity sector's supply side \\~\ }The production and technology choices made in the electricity sector arise from the difficulty of storing the sector's main product: electricity. A constant balance is required between the available power and the sum of the electricity end uses (the load). Therefore, production must adapt to the strong fluctuations of daily and seasonal demand. In other words, the total installed capacity must match the load at all times.
+\paragraph{A roadmap to model the electricity sector's supply side \\~\} The production and technology choices made in the electricity sector arise from the difficulty of storing the sector's main product: electricity. A constant balance is required between the available power and the sum of the electricity end uses (the load). Therefore, production must adapt to the strong fluctuations of daily and seasonal demand. In other words, the total installed capacity must match the load at all times.
 
 Accordingly, the profitability of production technologies depends on the annual operating time,  the fixed and variable costs for the respective production technology, and operational technical constraints.
 
@@ -25,7 +25,7 @@ In the end, the presentation of the main characteristics of the electricity sect
     \item the short-term choice of capacity utilization to meet current load (dispatch).
 \end{enumerate}
 
-We cover these two decisions in four sections. \textbf{Section 1} describes the technical and cost assumptions underlying the choices of electricity generation capacities. \textbf{Section 2} presents the inclusion of the load curve constraint. \textbf{Section 3} details the investment process, charactezed as optimal planning of investments under imperfect foresight. \textbf{Section 4} describes the dispatch decision.
+We cover these two decisions in four sections. \textbf{Section 1} describes the technical and cost assumptions underlying the choices of electricity generation capacities. \textbf{Section 2} presents the inclusion of the load curve constraint. \textbf{Section 3} details the investment process, characterized as optimal planning of investments under imperfect foresight. \textbf{Section 4} describes the dispatch decision.
 
 \section{Explicit production technologies described in terms of capital generation}
 
@@ -36,7 +36,7 @@ The description of the electricity generation mix is based on a discrete set of 
 The techno-economic parameters for each technology are calibrated using sectoral technology models or information from the literature (\cite{IEA2020}, \cite{IRENA2020}).
 For technologies that are scaled up or developed, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, floor costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (every region benefits from other's capacity additions) but the initial and asymptotic costs remain differentiated. This choice is motivated by two findings: 1) wind turbines and PV modules being traded as a commodity 2) persisting capital costs differences depending on the location, due to national or regional context such as labor costs.
 
-Moreoever, as renewable energy costs have declined recently, the CAPEX and OPEX curves for wind and solar (including CSP) are driven to match recently observed values in the region. It means that between 2014 and 2019, the decline in renewable costs is monitored and not driven by the learning curve.
+Moreover, as renewable energy costs have declined recently, the CAPEX and OPEX curves for wind and solar (including CSP) are driven to match recently observed values in the region. It means that between 2014 and 2019, the decline in renewable costs is monitored and not driven by the learning curve.
 
 %Table \ref{costs} in Annex  gives the calibration values for the United States of the techco-economic parameters characterizing the 21 technologies described in this version of the model.
 
@@ -59,12 +59,12 @@ The new generation of capital capacity and its technological characteristics are
 \section{A challenge to incorporate demand-side and renewable energy supply constraints}
 
  \paragraph{Final energy demand in IMACLIM-R} 
- In IMACLIM-R, the final energy demand arises from three (meta) sectors: the productive sector, the transportation sector and the residential sector. For the transportation and the residential sectors that benefit from detailed bottom-up representations, the use of electricity depends on explicit technology choices, $e.g.$ purchasing electric cars rather than thermal ones. In the case of productives sectors (agriculture, industry, construction, composite good), the electricity demand is determined by input-outputs coefficients.
+ In IMACLIM-R, the final energy demand arises from three (meta) sectors: the productive sector, the transportation sector and the residential sector. For the transportation and the residential sectors that benefit from detailed bottom-up representations, the use of electricity depends on explicit technology choices, $e.g.$ purchasing electric cars rather than thermal ones. In the case of productive sectors (agriculture, industry, construction, composite good), the electricity demand is determined by input-outputs coefficients.
 
  \paragraph{The load duration curve} 
 
 To model investments in the electricity sector in a stylized way i.e., without coupling the macroeconomic core of IMACLIM-R with a high-resolution energy model, it is common to combine the daily load curves over the 365 days of the year into a single curve called the load duration curve. 
-The load duration curve is obtained by plotting the hourly load values over the year against the duration for which that load was requested. The highest recorded load over the 8760 hours of the year is called the peak load. The minimum power supplied throughout the year is the base load. This way, the balance between electricity demand and supply can be solved annualy.
+The load duration curve is obtained by plotting the hourly load values over the year against the duration for which that load was requested. The highest recorded load over the 8760 hours of the year is called the peak load. The minimum power supplied throughout the year is the base load. This way, the balance between electricity demand and supply can be solved annually.
 
 
 The shape of the load duration curve is specific to each region, as it is directly related to the temporal variability of electricity demand. In particular, this variability depends on the seasonal climate variations in the region 
@@ -77,7 +77,7 @@ For numerical simplicity, the regional load duration curves have been approximat
 \end{itemize} 
 
 Hence, the load duration curve shape on Figure \ref{fig:LDC}: one peak load band, 5 inner load bands and one baseload band.
-Using this simplified scheme, the load duration curve of each region can be fully characterized by two values: peakload and baseload. The annual electricity produced is given by the surface under the curve presented in Figure \ref{fig:LDC} \footnote{In this Figure, the "real load duration curve" correspond to an hypothetical example, to highlight the way load duration curves are approximated. The reader should keep in mind that there is no such "real load duration curve" in IMACLIM-R, only an annual electricity demand from which a approximated load curve is derived}. 
+Using this simplified scheme, the load duration curve of each region can be fully characterized by two values: peakload and baseload. The annual electricity produced is given by the surface under the curve presented in Figure \ref{fig:LDC} \footnote{In this Figure, the "real load duration curve" correspond to a hypothetical example, to highlight the way load duration curves are approximated. The reader should keep in mind that there is no such "real load duration curve" in IMACLIM-R, only an annual electricity demand from which an approximated load curve is derived}. 
 
 \begin{figure}
 \includegraphics{figures&tables/LDC.png}
@@ -155,7 +155,7 @@ The VRE markup is the counterpart of the cost of variable renewable energy sourc
 \end{dmath}
 
 
- The residual peak load and the net share (without curtailment) of non-VRE generation in total demand depend on the gross VRE generation. Additionnaly, the ADVANCE project module was also used to calibrate VRE curtailments as a function of the share of solar PV and wind energy in the mix. %cite Ueckerdt, Pietzcker et al. from https://fp7-advance.eu/?q=content/variable-renewable-energy-integration-module
+ The residual peak load and the net share (without curtailment) of non-VRE generation in total demand depend on the gross VRE generation. Additionally, the ADVANCE project module was also used to calibrate VRE curtailments as a function of the share of solar PV and wind energy in the mix. %cite Ueckerdt, Pietzcker et al. from https://fp7-advance.eu/?q=content/variable-renewable-energy-integration-module
 \begin{figure}[H]
 \includegraphics[scale=0.8]{figures&tables/LDC&RLDC.png}
 \centering
@@ -163,7 +163,7 @@ The VRE markup is the counterpart of the cost of variable renewable energy sourc
 \label{fig:RLDCapprox}
 \end{figure}
 
-In the end, this residual load duration curve design allows representing VRE integration challenges in a compact electricity module such as IMACLIM-R's by relying on the highly resolved Dispatch and Investment Model for Electricity Storage (DIMES)  outputs. Basically, it allows the electricity sector of IMACLIM-R to include the impact of variable renewable energie on the electricity system in a simple, yet robust manner. It captures key mechanisms behind the variable renewable energy penetration challenge and yields consistant results (see Figure X in Annex).
+In the end, this residual load duration curve design allows representing VRE integration challenges in a compact electricity module such as IMACLIM-R's by relying on the highly resolved Dispatch and Investment Model for Electricity Storage (DIMES)  outputs. Basically, it allows the electricity sector of IMACLIM-R to include the impact of variable renewable energy on the electricity system in a simple, yet robust manner. It captures key mechanisms behind the variable renewable energy penetration challenge and yields consistent results (see Figure X in Annex).
 
 
 
@@ -298,7 +298,7 @@ In practice, the merit order implies that the technology with the lowest variabl
 \end{figure}
 
 
-This production cost minimization program allows  associating an average annual utilization period (in hours) in each region $k$ and for each technology. For conventionnal technologies, the utilization rate (the average functionning time of the installed capacity over the 8760 hours of the year) cannot exceed the availability factor. When this occur for some technologies (e.g. coal units would run 100\% of the time according to the dispatch procedure, while their availability factor is 85\%), we introduce an available capacity variable to account for outages and maintenance, and perform the dispatch again as shown on Figure \ref{fig:avail}. 
+This production cost minimization program allows  associating an average annual utilization period (in hours) in each region $k$ and for each technology. For conventional technologies, the utilization rate (the average functioning time of the installed capacity over the 8760 hours of the year) cannot exceed the availability factor. When this occurs for some technologies (e.g. coal units would run 100\% of the time according to the dispatch procedure, while their availability factor is 85\%), we introduce an available capacity variable to account for outages and maintenance, and perform the dispatch again as shown on Figure \ref{fig:avail}. 
 
 For conventional technologies using fossil fuels, the fuel consumption associated to the electricity produced is calculated directly from the average energy efficiency of electricity generation of the installed capacity of the technology.
 
