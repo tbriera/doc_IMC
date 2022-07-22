@@ -30,7 +30,7 @@ The techno-economic parameters for each technology are calibrated using sectoral
 For technologies that are scaled up or developed, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, floor costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (every region benefits from other's capacity additions) but the initial and asymptotic costs remain differentiated (or can be). This choice is motivated by two findings: 1) wind turbines and PV modules being traded as a commodity 2) persisting capital costs differences depending on the location, due to national or regional context such as labor costs. With $CINV \textunderscore MW\textunderscore nexus\textunderscore {k,j}(t)$ the current investment cost for technology $j$ in region $k$ at time $t$, $CINV\textunderscore MW\textunderscore nexus \textunderscore ref_{k,j}$, the reference investment cost (at calibration year), $A\textunderscore CINV\textunderscore MW\textunderscore ITC\textunderscore ref_{k,j}$ the floor cost,  $LR\textunderscore ITC\textunderscore elec_{j}$ the learning rate, $Cum\textunderscore Inv\textunderscore MW_ elec_ ref_{k,j}$ the cumulated investment of technology $j$ in region $k$ at calibration year, $Cum\textunderscore Inv\textunderscore MW\textunderscore elec_{k,j}(t)$ the cumulated investment at time $t$:
 
 \begin{dmath}
-    CINV\textunderscore MW\textunderscore nexus_{k,j}(t) = max(A\textunderscore CINV\textunderscore MW\textunderscore ITC\textunderscore ref_{k,j},CINV\textunderscore MW\textunderscore nexus \textunderscore ref_{k,j}*(1-LR\textunderscore ITC\textunderscore elec_{j})^{log(\frac{Cum\textunderscore Inv\textunderscore MW\textunderscore elec_{k,j}}{Cum\textunderscore Inv\textunderscore MW_ elec_ ref_{k,j}})})
+    CINV\_MW\_nexus_{k,j}(t) = max(A\_CINV\_MW\_ITC\_ref_{k,j},CINV\_MW\_nexus \_ref_{k,j}*(1-LR\_ ITC\_elec_{j})^{log(\frac{Cum\_Inv\_MW\_elec_{k,j}}{Cum\_Inv\_MW_elec_ ref_{k,j}})})
     \label{eqn:LR}
 \end{dmath}
 
@@ -43,17 +43,17 @@ The electricity nexus of IMACLIM-R includes both fossil fuel carbon capture and 
 \paragraph{ Capital inertia }
 In the electricity sector, the capital stock is path-dependent, because each investment at time t adds to the capacity built in previous periods. The variable $Cap\textunderscore elec\textunderscore MW\textunderscore vintage_{k,j}(t)$ tracks down yearly capacity additions for technology $j$ in region $k$. Thus, the depreciated capital at the time $t$ is the sum of the capital generations reaching the end of their lifetime from the time $t - lifetime$ to $t - 1$. When adding the new investment to the depreciated stock of capital at time t, one gets the functionning capital at time t before the new capacity addition from investment.
 \begin{dmath}
-    Cap\textunderscore elec \textunderscore MW\textunderscore vintage_{k,j}(t) = Inv\textunderscore MW_{k,j}(t)
+    Cap\_elec\_ MW\_vintage_{k,j}(t) = Inv\_MW_{k,j}(t)
     \label{eqn:Cap_elec_vintage}
 \end{dmath}
 
 \begin{dmath}
-    Cap\textunderscore elec\textunderscore MW\textunderscore dep_{k,j}(t) = \sum_{i = t - lifetime_{k}}^{t-1}Cap\textunderscore elec\textunderscore MW\textunderscore vintage_{k,j}(i)
+    Cap\_elec\_MW\_dep_{k,j}(t) = \sum_{i = t - lifetime_{k}}^{t-1}Cap\_elec\_MW\_vintage_{k,j}(i)
     \label{eqn:Cap_elec_dep}
 \end{dmath}
 
 \begin{dmath}
-    Cap\textunderscore elec \textunderscore MW_{k,j}(t) = Cap\textunderscore elec\textunderscore MW\textunderscore dep_{k,j}(t) + Inv\textunderscore MW_{k,j}(t)
+    Cap\_elec\_MW_{k,j}(t) = Cap\_elec\_MW\_dep_{k,j}(t) + Inv\_MW_{k,j}(t)
     \label{eqn:Cap_elec}
 \end{dmath}
 
@@ -305,8 +305,7 @@ In practice, this means that for each load band (starting with the lower band), 
 \end{itemize}
 
 \begin{figure}[H]
-    \includegraphics[scale=0.4]{figures&tables/availb.png}
-    \centering
+    \centerline{\includegraphics[scale=0.4]{figures&tables/availb.png}}
     \caption{Installed and available capacity during dispatch}
     \label{fig:avail}
 \end{figure}
@@ -315,6 +314,17 @@ In practice, this means that for each load band (starting with the lower band), 
 This production cost minimization program allows associating an average annual utilization period (in hours) in each region $k$ and for each technology. For conventional technologies, the utilization rate (the average functioning time of the installed capacity over the 8760 hours of the year) cannot exceed the availability factor. When this occurs for some technologies (e.g. coal units would run 100\% of the time according to the dispatch procedure, while their availability factor is 85\%), we introduce an available capacity variable to account for outages and maintenance, and perform the dispatch again as shown on Figure \ref{fig:avail}.
 
 For conventional technologies using fossil fuels, the fuel consumption associated to the electricity produced is calculated directly from the average energy efficiency of electricity generation of the installed capacity of the technology.
+
+\section{Linkage between the electricity sector and the rest of the economy}
+
+The linkage between the electricity module and the macroeconomic core of IMACLIM-R covers
+\begin{itemize}
+    \item flowing from the macroeconomic core to the electricity sector, as inputs to the nexus : current electricity demand and fossil fuel prices
+    \item after the investment and dispatch decisions, bottom-up information from the nexus: the price of electricity and input-output coefficients associated with electricity production, an investment demand
+\end{itemize}
+
+The input part is straightforward and covered in section 4. The bottom-up information 
+
 
 The technical unitary coefficients of production which characterize the electricity sector (quantities of different fuels required to produce a unit of electricity) are determined for coal, gas and liquid fuels by equations \ref{eqn:IC1}, \ref{eqn:IC2}, and  \ref{eqn:IC3}.
 
