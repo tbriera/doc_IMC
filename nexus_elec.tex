@@ -320,28 +320,41 @@ For conventional technologies using fossil fuels, the fuel consumption associate
 The linkage between the electricity module and the macroeconomic core of IMACLIM-R covers
 \begin{itemize}
     \item flowing from the macroeconomic core to the electricity sector, as inputs to the nexus : current electricity demand and fossil fuel prices
-    \item after the investment and dispatch decisions, bottom-up information from the nexus: the price of electricity and input-output coefficients associated with electricity production, an investment demand
+    \item after the investment and dispatch decisions, bottom-up information from the nexus: the price of electricity and input-output coefficients associated with electricity production, the new stock of capital in the electricity sector and its associated maximum level of physical output achievable ($Cap_{k}$).
 \end{itemize}
 
-The input part is straightforward and covered in section 4. The bottom-up information 
+The input part is straightforward and covered in section 4. The bottom-up information from the nexus serves as building blocks for the electricity sector supply curve. The shape of the supply curve determines the market clearing conditions and thus the final electricity price. The supply curve in the electricity sector (precisely, the inverse supply curve), as any sector of IMACLIM-R, can be interpreted as the sum of a marginal production cost plus a sector,region-specific markup for profits. Unless otherwise stated, perfect competition is assumed in the electricity sector. Thus, the markup only covers the costs related to investment and capital depreciation.
+The marginal cost of electricity generation in region $k$ is given by:
+
+\begin{dmath}
+    Cm_{k} = \sum_{j}{}pIC_{j,k}*IC_{j,k} + (\Omega_{k}*w_{k})*l_{k}*(1+tax_{k}^{w})
+    \label{eqn:Cm}
+\end{dmath}
 
 
-The technical unitary coefficients of production which characterize the electricity sector (quantities of different fuels required to produce a unit of electricity) are determined for coal, gas and liquid fuels by equations \ref{eqn:IC1}, \ref{eqn:IC2}, and  \ref{eqn:IC3}.
+The technical unitary coefficients of production which characterize the electricity sector (quantities of different fuels required to produce a unit of electricity) are determined for coal, gas and liquid fuels ($tech = [coal,gas,et]$) by equation \ref{eqn:IC}.
 
-\begin{equation}
-    IC_{coal,elec,k} = \frac{\sum_{techno\_coal}  \frac{prod\_elec\_techno_k,techno\_coal}{rho\_elec_k,techno_{coal}}}{Q\_elec\_anticip}
-    \label{eqn:IC1}
-\end{equation}
+\begin{dmath}
+    IC_{tech,elec,k} = \frac{\frac{prod\_elec\_techno_{tech,k}}{rho\_elec_{tech,k}}}{Q\_elec\_anticip}
+    \label{eqn:IC}
+\end{dmath}
 
-\begin{equation}
-    IC_{gas,elec,k} = \frac{\sum_{techno\_gas}  \frac{prod\_elec\_techno_k,techno\_gas}{rho\_elec_k,techno_{gas}}}{Q\_elec\_anticip}
-    \label{eqn:IC2}
-\end{equation}
-\begin{equation}
-    IC_{et,elec,k} = \frac{\sum_{techno\_et}  \frac{prod\_elec\_techno_k,techno\_et}{rho\_elec_k,techno_{et}}}{Q\_elec\_anticip}
-    \label{eqn:IC3}
-\end{equation}
+The marginal cost is increasing with the quantity of electricity generation through the utilization rate $\Omega_{k} = \frac{Q_{k}}{Cap_{k}}$. Static decreasing returns are assumed in every sector of IMACLIM-R. They are associated with lower labor productivity (see doc). %starting form here, we  write two versions: what is in the code and what is should look like
+%current
+%from what I get: we start from Qref which is assumed to be well calibrated using GTAP data
+%then we suppose that at calibration year the capital stock in the elec sector => 80% utilization rate
+%After that, at every period the initial maximum output increases by (sum(Cap_elec_MW_dep,'c')+sum(Inv_MW,'c'))./sum(Cap_elec_MWref,'c')
 
+%ideal
+ In the electricity sector $Cap_{k}$ is given by the stock of capital and the availability factor associated with the different installed electricity generation technologies.
+
+\begin{dmath}
+    Cap_{elec,k} =  Cap\_elec\_MW_{k,j}(t)*Avail_\_factor_{k,j}(t)
+    \label{eqn:Cap}
+\end{dmath}
+
+
+The markup is fixed prior to market clearing. It is calibrated such that, at current intermediary and final prices, the sum of the average cost of electricity generation (including investment costs) and the markup equals the regional market price of electricity.
 \section{Long-term projections for regional power systems}
 In this section, we briefly present the key electricity nexus outputs from 2020 to 2100, namely production and installed capacity under two scenarios: a baseline scenario and a SSP2 scenario.
 
