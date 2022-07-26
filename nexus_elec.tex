@@ -26,7 +26,8 @@ We cover these two decisions in the four next sections. \textbf{Section 2} descr
 
 The description of the electricity generation mix is based on a discrete set of  21  technologies. Each of the  21  technologies is characterized by a set of techno-economic parameters that allow its levelized cost of electricity (LCOE) to be computed. These parameters include: investment costs ( in \$ per \kw  installed), energy efficiency ($rho$, in \% for the technologies using fossil fuels), fixed and variable operation and maintenance costs (\$ per \kw installed and \$ per \kwh produced), , an availability factor for dispatchable technologies (in \% of full load hours), a capacity factor for non-dispatchable technologies (in \% of full load hours), lifetimes, and a discount rate (in \%) that includes both the opportunity cost of capital and a unique risk factor for each technology.
 
-The techno-economic parameters for each technology are calibrated using sectoral technology models or information from the literature (%\cite{IEA2020}, \cite{IRENA2020}).
+The techno-economic parameters for each technology are calibrated using sectoral technology models or information from the literature (%\cite{IEA2020}, \cite{IRENA2020}). 
+A complete description of the original data can be found in the IMC_data_elec repository.
 For technologies that are scaled up or developed, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, floor costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (every region benefits from other's capacity additions) but the initial and asymptotic costs remain differentiated (or can be). This choice is motivated by two findings: 1) wind turbines and PV modules being traded as a commodity 2) persisting capital costs differences depending on the location, due to national or regional context such as labor costs. With $CINV \textunderscore MW\textunderscore nexus\textunderscore {k,j}(t)$ the current investment cost for technology $j$ in region $k$ at time $t$, $CINV\textunderscore MW\textunderscore nexus \textunderscore ref_{k,j}$, the reference investment cost (at calibration year), $A\textunderscore CINV\textunderscore MW\textunderscore ITC\textunderscore ref_{k,j}$ the floor cost,  $LR\textunderscore ITC\textunderscore elec_{j}$ the learning rate, $Cum\textunderscore Inv\textunderscore MW_ elec_ ref_{k,j}$ the cumulated investment of technology $j$ in region $k$ at calibration year, $Cum\textunderscore Inv\textunderscore MW\textunderscore elec_{k,j}(t)$ the cumulated investment at time $t$:
 
 \begin{dmath}
@@ -253,7 +254,13 @@ We also assume that the central planner in the electricity market selects the ma
 In the electricity sector of IMACLIM-R, a first logit nest determines the share of variable renewables (wind and solar PV) and the aggregate share of non-variable renewables in total electricity generation. The market share for each non-variable renewable energy is determined by a second logit nest.
 The choice indicator for the aggregated dispatchable plants’ share is the lowest LCOE on baseload
 \footnote{Technologies with limited potential due to resource endowment constraints (hydro, CSP) or social acceptance (nuclear) were excluded from the non-variable renewables choice indicator.}. The weight shares $\alpha_{k,i}$ are calibrated to reproduce 2019 observed market shares for the four VRE technologies (wind onshore, wind offshore, central PV and rooftop PV) and progress thereafter towards equal weighting. Thus, we assume that all non-LCOE factors driving VRE deployment (financial support like feed-in tariffs, national preferences etc.) are declining. Electricity generation technologies end by competing solely based on their economic costs.
-The sum of the VRE market shares yields the share of net VRE generation ($share\_elec_{k,TECH\_ENR}$) in the total electricity demand ($Q\_elec_k^{anticip}$)  in region k. The remaining (residual) demand $Q\_elec_k^{anticip} \cdot (1-share\_elec_{k,TECH\_ENR})$ must be met with dispatchable power plants, including hydropower, CSP and conventional thermal power plant.
+
+The sum of the VRE market shares yields the share of net VRE generation ($share\_VRE\_endo_k$) in the total expected electricity demand ($Q\_elec\_anticip\_tot_k$)  in region k. The remaining (residual) demand ($Q\_elec_\_anticip_k$) must be met with dispatchable power plants, including hydropower, CSP and conventional thermal power plant:
+
+\begin{dmath}
+    Q\_elec\_anticip_k = Q\_elec\_anticip\_tot_k*(1 - share\_VRE\_endo_{k})
+    \label{eqn:Q_elec}
+\end{dmath}
 
 As shown in Figure Y, the first logit nest determines the global share of variable renewables from which the residual electricity demand for dispatchable capacity is derived. Once the residual load duration curve is approximated, dispatchable technologies compete for each load band in the second logit nest. That is described later in the "Conventional Installed Generation Capacity" paragraph
 
@@ -327,7 +334,7 @@ In practice, this means that for each load band (starting with the lower band), 
 \end{itemize}
 
 \begin{figure}[H]
-    \centerline{\includegraphics[scale=0.4]{figures&tables/availb.png}}
+    \centerline{\includegraphics[scale=0.6]{figures&tables/availb.png}}
     \caption{Installed and available capacity during dispatch}
     \label{fig:avail}
 \end{figure}
