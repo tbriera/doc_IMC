@@ -346,15 +346,20 @@ This production cost minimization program allows associating an average annual u
 \section{Linkage between the electricity sector and the rest of the economy}
 
 The link between the electricity module and the macroeconomic core of IMACLIM-R runs mainly through electricity demand, electricity prices, and fossil fuel prices. Electricity demand and fossil fuel prices are inputs to the electricity nexus: this was discussed in Section 4. The price of electricity is the most important output of the electricity nexus, as it is determined both by the fossil fuel content of electricity generation (through the input-output coefficients $IC$) and by the investment required to provide electricity. 
-
-The bottom-up information from the nexus (input-output coefficients, installed capacity per technology) are the building blocks for the electricity sector supply curve. The shape of the supply curve determines the market clearing conditions and thus the final electricity price. The electricity sector supply curve (more specifically, the inverse supply curve), like each sector of IMACLIM-R, can be interpreted as the sum of marginal production costs plus a sector-specific profit markup. Unless otherwise stated, the electricity sector is assumed to be perfectly competitive. Thus, the profit markup covers only the costs of investment and capital depreciation.
+%talk about investment here?
+The bottom-up information from the nexus (input-output coefficients, installed capacity per technology) are the building blocks for the electricity sector supply curve. The shape of the supply curve determines the market clearing conditions and thus the final electricity price. The electricity sector supply curve (more specifically, the inverse supply curve), like each sector of IMACLIM-R, can be interpreted as the sum of marginal production cost ($Cm$) plus a sector-specific profit markup ($\pi$).  Unless otherwise stated, the electricity sector is assumed to be perfectly competitive. Thus, the profit markup covers only the costs of investment and capital depreciation. The markup is fixed prior to market clearing. It is calibrated such that, at current intermediary and final prices, the sum of the average cost of electricity generation (including investment costs) and the markup equals the regional market price of electricity.
 Thus, the marginal cost of electricity generation in region $k$ is given by:
 
 \begin{dmath}
     Cm_{k} = \sum_{j}{}pIC_{j,k}*IC_{j,k} + (\Omega_{k}*w_{k})*l_{k}*(1+tax_{k}^{w})
     \label{eqn:Cm}
 \end{dmath}
+and the electricity price is given by : 
 
+\begin{dmath}
+    p_{k} = \sum_{j}{}pIC_{j,k}*IC_{j,k} + (\Omega_{k}*w_{k})*l_{k}*(1+tax_{k}^{w}) + \pi_{k} * p_{k}
+    \label{eqn:Cm}
+\end{dmath}
 \begin{itemize}
     \item The technical unitary coefficients of production which characterize the electricity sector (quantities of different fuels required to produce a unit of electricity) are determined for coal, gas and liquid fuels ($tech = [coal,gas,et]$) by equation \ref{eqn:IC}.
 \end{itemize}
@@ -381,8 +386,6 @@ Thus, the marginal cost of electricity generation in region $k$ is given by:
     \label{eqn:Cap}
 \end{dmath}
 
-
-The markup is fixed prior to market clearing. It is calibrated such that, at current intermediary and final prices, the sum of the average cost of electricity generation (including investment costs) and the markup equals the regional market price of electricity.
 
 
 \section{Long-term projections for regional power systems}
