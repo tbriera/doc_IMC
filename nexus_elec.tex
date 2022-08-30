@@ -18,7 +18,10 @@ Ultimately, representing the key features of electricity systems imposes that tw
     \item the short-term choice of capacity utilization to meet current load (dispatch).
 \end{enumerate}
 
-We cover these two decisions in the four next sections. \textbf{Section 2} describes the technical and cost assumptions underlying the choices of electricity generation capacities. \textbf{Section 3} presents the inclusion of the load curve constraint. \textbf{Section 4} details the investment process, characterized as optimal planning of investments under imperfect foresight. \textbf{Section 5} describes the dispatch decision. The last two sections details the link between the electricity nexus and the rest of the economy \textbf{Section 6} while \textbf{Section 7} presents the key outputs of the nexus.
+
+We cover these two decisions in the four next sections. We start by characterizing the technical and economic conditions of electricity production:  \textbf{Section 2} describes the technical and cost assumptions underlying the choices of electricity generation capacities while \textbf{Section 3} presents the incorporation of demand-side and renewable energy production constraints. In the next sections, the investment (\textbf{Section 4}) and dispatch (\textbf{Section 5}) decision frameworks are detailed. \textbf{Section 6}  details the link between the electricity nexus and the rest of the economy while \textbf{Section 7} presents the key outputs of the nexus.
+
+\section*{A bottom-up description of electricity production conditions}
 
 \section{Explicit electricity generation technologies described in terms of capital generation}
 
@@ -70,7 +73,6 @@ Every year, the production units that reach the end of their lifetimes are retir
 Adding the annual capacity additions $i.e.$ investments, we obtain a net installed production capacity.
 
 The new generation of capital capacity and its technological characteristics are determined by investment choices, represented as described in the following sections.
-
 
 \section{A challenge to incorporate demand-side and renewable energy supply constraints in a compact electricity module}
 
@@ -207,6 +209,8 @@ In the end, this residual load duration curve design allows representing VRE int
 \paragraph*{Storage}
 For now, only short-term storage is represented in the electricity nexus: storage capacity, outputs and losses are extracted from the DIMES output (see equation \ref{eqn:stor_cap} and \ref{eqn:stor_out}) and DIMES only optimizes short-term storage. Thus, seasonal (long-term) storage is not included yet in the electricity nexus.
 
+\section*{Modeling investment and dispatch decision processes}
+
 \section{Optimal planning of investments under imperfect foresight}
 
 With the compact representation of power generation technologies and the (residual) load duration curve presented above, we have the necessary technical details to model investment decisions in the power sector on an annual basis.
@@ -342,8 +346,9 @@ In practice, this means that for each load band (starting with the lower band), 
 
 This production cost minimization program allows associating an average annual utilization period (in hours) in each region $k$ and for each technology. For conventional technologies, the utilization rate (the average functioning time of the installed capacity over the 8760 hours of the year) cannot exceed the availability factor. When this occurs for some technologies (e.g. coal units would run 100\% of the time according to the dispatch procedure, while their availability factor is 85\%), we introduce an available capacity variable to account for outages and maintenance, and perform the dispatch again as shown on Figure \ref{fig:avail}.
 
+\section*{Understanding the role of the electricity sector in a hybrid integrated assessment model: macroeconomic linkage and long term projections}
 
-\section{Linkage between the electricity sector and the rest of the economy}
+\section{Linkage between the electricity sector and the macroeconomic core of IMACLIM-R}
 
 The link between the electricity module and the macroeconomic core of IMACLIM-R runs mainly through electricity demand, electricity prices, and fossil fuel prices. Electricity demand and fossil fuel prices are inputs to the electricity nexus: this was discussed in Section 4. The price of electricity is the most important output of the electricity nexus, as it is determined both by the fossil fuel content of electricity generation (through the input-output coefficients $IC$) and by the investment required to provide electricity. 
 %talk about investment here?
