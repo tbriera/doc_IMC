@@ -1,55 +1,65 @@
-\documentclass{article}
-\usepackage[english]{babel}
-% English
-%\usepackage[latin1]{inputenc}
-%\usepackage[T1]{fontenc}
+\documentclass[a4paper, 11pt]{article}
 
-% French
-\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
-
-% tables
-\usepackage{longtable}
-\usepackage[table]{xcolor} % for rowcolors
-\usepackage{lscape}
-\usepackage{multirow}
-\usepackage{colortbl}
-\usepackage{color}
-\usepackage{threeparttable}
-\usepackage{caption}
-\usepackage{tabularx}
-% math
 \usepackage{amsmath}
-\usepackage{esdiff}
-\usepackage{gensymb}
-\usepackage{wasysym}
+\usepackage{array} %the m in tabular options
+\usepackage{authblk} % author stuff
+\usepackage{bbold} %indicatrice
 \usepackage{bbm} %indicator function
 \usepackage{breqn} % breaking equations
-
-\usepackage[authoryear]{natbib}
-\bibliographystyle{abbrvnat}
-
-
-
-% figures
-\usepackage{subcaption}
-\usepackage{graphicx}
+\usepackage{csvsimple} %importing values from csv
+\usepackage{datatool} %for csv extraction
+\DTLsetseparator{,}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{filecontents}
 \usepackage{float}
-\usepackage[export]{adjustbox}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable} %tables
+\usepackage{pdflscape}%landscape
+\usepackage{setspace} 
+\usepackage{tcolorbox}
+\usepackage{threeparttable}
+\usepackage{url}
 
-%landscape
-\usepackage{pdflscape}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}} %centered column
+
+\usepackage[backend=bibtex,style=nature, natbib=true, sorting=none,isbn=false,url=false,citestyle=authoryear]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+\addbibresource{Biblio.bib} % The filename of the bibliography
+% link and citation settings
+\hypersetup{
+colorlinks=true, %colorise les liens 
+breaklinks=false, %permet le retour à la ligne dans les liens trop longs 
+urlcolor= blue, %couleur des hyperliens 
+linkcolor= black,	%couleur des liens internes 
+citecolor=blue,	%couleur des références 
+} 
+
+
 
 %abbreviations
 \newcommand{\kw}{\$/kW }
 \newcommand{\kwh}{\$/kWh }
 
+%title stuff
+\title{Capturing physical, technical and economic constraints on electricity generation: a description of the IMACLIM-R electricity module}
+\date{}
+\author[1,2]{Briera Thibault\thanks{Corresponding author: \texttt{briera.cired@gmail.com}}}
+
+
+\affil[1]{CIRED}
+\affil[2]{AgroParisTech}
 
 \begin{document}
+\maketitle
+\input{abstract}
 \input{nexus_elec}
 %bibliography
-\newpage
-\bibliography{Biblio}
-
-
+%biblio
+\clearpage
+\printbibliography[title={Bibliography}]
+\addcontentsline{toc}{section}{Bibliograpy}
 \end{document}
