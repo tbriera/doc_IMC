@@ -1,28 +1,28 @@
 \section{Introduction}
+%rewrite intro
 The electricity sector is receiving special attention under the low-carbon transition, as it is a massive lever for reducing greenhouse gas (GHG) emissions. Electricity generation accounted for 44\% of global CO2 emissions in 2019. Climate change mitigation undoubtedly goes hand in hand with a technological shift to renewable energy. In fact, the emissions of the electricity sector come from the combustion of fossil resources, namely coal, oil and gas, in existing power plants. Given the inertia of capital in this sector (power plants are expected to operate for decades), today's option for electricity generation are determined by the capacity built in the past. Therefore, an accurate representation of power capacity investment decisions is key to capturing current and future developments in the electricity sector.
 
 
-Ultimately, representing the key features of electricity systems imposes that two types of decisions made under techno-economic constraints are considered:
+Ultimately, representing the key features of electricity systems imposes that two types of decisions made under techno-economic constraints are considered
 \begin{enumerate}
     \item the long-term choice of optimal capacity to meet future electricity demand
     \item the short-term choice of capacity utilization to meet current load (dispatch).
 \end{enumerate}
+The investment and dispatch decisions are covered in separated submodules of the electricity module (or electricity nexus) of IMACLIM-R. Note that in our framework the electricity sector refers to the sector in the macroeconomic core of IMACLIM-R, while the electricity module or nexus designate its dynamic, bottom-up counterpart.
 
-
-We cover these two decisions in the four next sections. We start by characterizing the technical and economic conditions of electricity production:  \textbf{Section 2} describes the technical and cost assumptions underlying the choices of electricity generation capacities while \textbf{Section 3} presents the incorporation of demand-side and renewable energy production constraints. In the next sections, the investment (\textbf{Section 4}) and dispatch (\textbf{Section 5}) decision frameworks are detailed. \textbf{Section 6}  details the link between the electricity nexus and the rest of the economy while \textbf{Section 7} presents the key outputs of the nexus.
+More details about the modeling framework of the investment and dispatch decisions are given in the following. We start by characterizing the technical and economic conditions of electricity production:  \textbf{Section 2} describes the technical and cost assumptions underlying the choices of electricity generation capacities while \textbf{Section 3} presents the incorporation of demand-side and renewable energy production constraints. In the next sections, the investment (\textbf{Section 4}) and dispatch (\textbf{Section 5}) decision frameworks are detailed. \textbf{Section 6}  details the link between the electricity nexus and the rest of the economy while \textbf{Section 7} presents the key outputs of the nexus.
 
 \part*{A bottom-up description of electricity production conditions}
 
 \section{Explicit electricity generation technologies described in terms of capital generation}
 
-\paragraph{ Cost assumptions and technical change in the electricity sector.} The description of the electricity generation mix is based on a discrete set of  20  technologies. Each of the  20  technologies is characterized by a set of techno-economic parameters that allow its levelized cost of electricity (LCOE) to be computed. These parameters include: investment costs ( in \$ per \kw  installed), energy efficiency ($rho$, in \% for the technologies using fossil fuels), fixed and variable operation and maintenance costs (\$ per \kw installed and \$ per \kwh produced), , an availability factor for dispatchable technologies (in \% of full load hours), a capacity factor for non-dispatchable technologies (in \% of full load hours), lifetimes, and a discount rate (in \%) that includes both the opportunity cost of capital and a unique risk factor for each technology.
+\paragraph{ Cost assumptions and technical change in the electricity sector.} In the current version of IMACLIM-R, 20 technologies are available for electricity generation investments. Each of the  20  technologies is characterized by a set of techno-economic parameters that allow its levelized cost of electricity (LCOE) to be computed. These parameters include: investment costs, energy efficiency, fixed and variable operation and maintenance costs, an availability factor for dispatchable technologies (in \% of full load hours), a capacity factor for non-dispatchable technologies (in \% of full load hours), lifetimes, and a discount rate that includes both the opportunity cost of capital and a unique risk factor for each technology.
 
-The techno-economic parameters for each technology are calibrated using sectoral technology models or information from the literature (%\cite{IEA2020}, \cite{IRENA2020}). 
-A complete description of the original data can be found in the IMC_data_elec repository.
-For technologies that are scaled up or developed, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, floor costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (every region benefits from other's capacity additions) but the initial and asymptotic costs remain differentiated (or can be). This choice is motivated by two findings: 1) wind turbines and PV modules being traded as a commodity 2) persisting capital costs differences depending on the location, due to national or regional context such as labor costs. With $CINV \textunderscore MW\textunderscore nexus\textunderscore {k,j}(t)$ the current investment cost for technology $j$ in region $k$ at time $t$, $CINV\textunderscore MW\textunderscore nexus \textunderscore ref_{k,j}$, the reference investment cost (at calibration year), $A\textunderscore CINV\textunderscore MW\textunderscore ITC\textunderscore ref_{k,j}$ the floor cost,  $LR\textunderscore ITC\textunderscore elec_{j}$ the learning rate, $Cum\textunderscore Inv\textunderscore MW_ elec_ ref_{k,j}$ the cumulated investment of technology $j$ in region $k$ at calibration year, $Cum\textunderscore Inv\textunderscore MW\textunderscore elec_{k,j}(t)$ the cumulated investment at time $t$:
+The techno-economic parameters for each technology are calibrated using sectoral technology models or information from the literature %\cite{IEA2020}, \cite{IRENA2020})..
+For immature technologies, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, floor costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (every region benefits from other's capacity additions) but the initial and asymptotic costs remain differentiated. This choice is motivated by two findings: 1) wind turbines and PV modules being traded as a commodity 2) persisting capital costs differences depending on the location, due to national or regional context such as labor costs. With $CINV \textunderscore MW\textunderscore nexus\textunderscore {k,j}(t)$ the current investment cost for technology $j$ in region $k$ at time $t$, $CINV\textunderscore MW\textunderscore nexus \textunderscore ref_{k,j}$, the reference investment cost (at calibration year), $A\textunderscore CINV\textunderscore MW\textunderscore ITC\textunderscore ref_{k,j}$ the floor cost,  $LR\textunderscore ITC\textunderscore elec_{j}$ the learning rate, $Cum\textunderscore Inv\textunderscore MW_ elec_ ref_{k,j}$ the cumulated investment of technology $j$ in region $k$ at calibration year, $Cum\textunderscore Inv\textunderscore MW\textunderscore elec_{k,j}(t)$ the cumulated investment at time $t$:
 
 \begin{dmath}
-    CINV\_MW\_nexus_{k,j}(t) = max(A\_CINV\_MW\_ITC\_ref_{k,j},CINV\_MW\_nexus \_ref_{k,j}*(1-LR\_ ITC\_elec_{j})^{log(\frac{Cum\_Inv\_MW\_elec_{k,j}}{Cum\_Inv\_MW_elec_ ref_{k,j}})})
+    CINV\_MW\_nexus_{k,j}(t) = max(A\_CINV\_MW\_ITC\_ref_{k,j},CINV\_MW\_nexus \_ref_{k,j}*(1-LR\_ ITC\_elec_{j})^{log(\frac{Cum\_Inv\_MW\_elec_{k,j}(t)}{Cum\_Inv\_MW_elec_ ref_{k,j}})})
     \label{eqn:LR}
 \end{dmath}
 
@@ -101,66 +101,66 @@ The load duration curve approximation associated with a quantity $Q\_elec_k$ of 
 where $base_k$ and $peak_k$ are the loads required during the base or peak periods respectively.
 
 \begin{dmath}
-    \frac{base_k}{peak_k} = bp\_ratio_k
+    \frac{base_k(t)}{peak_k(t)} = bp\_ratio_k
     \label{eqn:elecBpRatio}
 \end{dmath}
 
 \begin{dmath}
-    Q\_elec_k =
-    peak_k * 730 +
-    base_k * 8760 + \frac{peak_k - base_k}{6} * ( 8030 + 6570 + 5110 + 3650 + 2190)
+    Q\_elec_k(t) =
+    peak_k(t) * 730 +
+    base_k(t) * 8760 + \frac{peak_k(t) - base_k(t)}{6} * ( 8030 + 6570 + 5110 + 3650 + 2190)
     \label{eqn:elecQ}
 \end{dmath}
 
-The load duration curve shape informs both about the optimal size of generating capacity required to meet peak demand and when to utilize this capacity throughout the year. To go further, we must account for the impact of renewable power over the load duration curve. Residual Load Duration Curves (RLDCs) encapsulate the physical and temporal constraints on electricity demand and supply, including the challenges to variable renewable energy integration into power systems.
+The load duration curve shape informs both about the optimal size of power generatin capacity required to meet peak demand and when to utilize this capacity throughout the year. To go further, we must account for the impact of renewable power over the load duration curve. Residual Load Duration Curves (RLDCs) encapsulate the physical and temporal constraints on electricity demand and supply, including the challenges to variable renewable energy integration into power systems.
 
 \paragraph{The residual load duration curve and the challenges to VRE integration.}
 
 Variable renewable energy (VRE) sources such as solar PV or wind are intrinsically non-dispatchable. Thus, their deployment has an impact on the operation of power systems (\cite{Hirth2015}). VRE generation increases the need for flexibility of the power system, including dispatchable power to meet peak demand. Indeed, the capacity credit of VRE (the ability to contribute to peak demand in a power system) is low and decreases as the VRE share in the mix increases.
 
-For technologies to compete on an equal footing (dispatchable vs variable), we first must correct VRE Levelized Cost of Electricity (LCOE) to account for its low capacity credit, $i.e.$ variable renewable energy sources contribution to meeting peak demand. In other words, the "hidden costs" associated with VRE generation are not included in VRE LCOE. Therefore, we add what we call "integration costs" to the VRE LCOE to calculate the System VRE LCOE system that covers the full economic costs of solar and wind generation. Integration costs measure the costs imposed on the electricity system to maintain the marginal value of renewable electricity. They include investments in storage facilities, grid costs, backup costs, etc. Typically, integration costs are divided into three categories, each related to the fundamental characteristics of renewables: Uncertainty, locational constraints, and variability.
+For technologies to compete on an equal footing (dispatchable vs variable), we first must correctthe  Levelized Cost of Electricity (LCOE) of VRE to account for its low capacity credit, $i.e.$ variable renewable energy sources contribution to meeting peak demand. In other words, the "hidden costs" associated with VRE generation are not included in the LCOE of VRE. Therefore, we add what we call "integration costs" to the LCOE of VRE to computethe System LCOE of VRE that covers the full economic costs of solar and wind generation. Integration costs measure the costs imposed on the electricity system to maintain the marginal value of renewable electricity. They include investments in storage facilities, grid costs, backup costs, etc. Typically, integration costs are divided into three categories, each related to the fundamental characteristics of renewables: uncertainty, locational constraints, and variability.
 \begin{itemize}
     \item Balancing costs (uncertainty). They gather actions taken to face VRE output unpredictability, for instance, the cost of intraday trading. Balancing costs tend to zero in absence of forecasting errors on VRE output.
     \item Grid-related costs (locational specificity). Grid-related costs measure the reduction in market value due to the specific generation location of power plants.
     \item Profile costs (variability). Profile costs reflect the marginal value of electricity at different moments in time. As the demand varies through time, profile costs measure the cost of matching this demand with VRE storage devices or conventional backup power.
 \end{itemize}
 
-However, estimating value ranges for profile costs and other integration costs is not straightforward. With 20\% renewables in the electricity mix, reported values for integration costs range from €0/MWh to €49.2/MWh, \cite{Heptonstall2021} reflecting a high degree of uncertainty in integration cost estimates. Indeed, the extent of the depreciation of the market value of the renewable electricity depends on the (in)flexibility of the rest of the electricity system. The more flexible the system, the lower the integration costs. Consequently, estimates of integration costs depend on the underlying energy model and its techno-economic assumptions. The alternative to estimating integration costs would have been to rely on a much more detailed, soft-linked energy system optimization model which includes explicit flexibility solutions to VRE deployment. By doing so, we would have lost all the benefits of an embedded electricity module. Therefore, we chose a synthetic way to account for integration costs through an integration cost markup for PV and wind. The PV (resp. wind) markup, expressed in \$ per MWh of PV (resp. wind), is linear with respect to the share of wind and PV gross generation and sums to the PV (resp. wind) electricity production cost. The parameters $\alpha$, $\beta$, $\gamma$, and $\delta$ are calibrated to reflect typical values of integration costs (in \$ per MWh of VRE generation).
+However, estimating value ranges for profile costs and other integration costs is not straightforward. With 20\% renewables in the electricity mix, reported values for integration costs range from €0/MWh to €49.2/MWh (\cite{Heptonstall2021}), reflecting a high degree of uncertainty in integration cost estimates. Indeed, the extent of the depreciation of the market value of the renewable electricity depends on the (in)flexibility of the rest of the electricity system. The more flexible the system, the lower the integration costs. Consequently, estimates of integration costs depend on the underlying energy model and its techno-economic assumptions. The alternative to estimating integration costs would have been to rely on a much more detailed, soft-linked energy system optimization model which includes explicit flexibility solutions to VRE deployment. By doing so, we would have lost all the benefits of an embedded electricity module. Therefore, we chose a synthetic way to account for integration costs through an integration cost markup for PV and wind. The PV (resp. wind) markup, expressed in \$ per MWh of PV (resp. wind), is linear with respect to the share of wind and PV gross generation and sums to the PV (resp. wind) electricity production cost. The parameters $\alpha$, $\beta$, $\gamma$, and $\delta$ are calibrated to reflect typical values of integration costs (in \$ per MWh of VRE generation).
 
 \begin{dmath}
-    Markup^{pv}_k = \alpha * share\_pv_k + \beta * share\_wind_k
+    Markup^{pv}_k(t) = \alpha * Gross\_pv\_share_{k}(t) + \beta * Gross\_wind\_share_{k}(t)
 \end{dmath}
 \begin{dmath}
-    Markup^{wind}_k = \gamma * share\_pv_k + \delta * share\_wind_k
+    Markup^{wind}_k(t) = \gamma * Gross\_pv_share_{k}(t) + \delta * Gross\_wind\_share_{k}(t)
 \end{dmath}
 \begin{dmath}
-    Integration\_costs_k = Markup^{pv}_k *
-    \frac{share\_pv_k}{share\_pv_k + share\_wind_k} +
-    Markup^{wind}_k * \frac{share\_wind_k}{share\_pv_k + share\_wind_k}
+    Integration\_costs_k(t) = Markup^{pv}_k(t) *
+    \frac{Gross\_pv\_share_{k}(t)}{Gross\_pv\_share_{k}(t) + Gross\_wind\_share_{k}(t)} +
+    Markup^{wind}_k(t) * \frac{Gross\_wind\_share_{k}(t)}{Gross\_pv\_share_{k}(t) + Gross\_wind\_share_{k}(t)}
 \end{dmath}
 
-%plot the values of VRE
 
+% what to do with the sensitibility analysis?
 We still lack robust data to calibrate the integration cost markup parameter, and we rely on the few existing studies to do so. These parameters shall be updated as soon as comprehensive peer-reviewed studies on integration costs will be published.  The sensibility analysis presented on Figure [coming: sensibility analysis on the markup parameters] show that the integration cost markup parameters are of great importance for VRE deployment.
 
 The VRE markup is the counterpart of the cost of variable renewable energy sources on the rest of the electricity system. This is captured physically by a distortion of the residual load duration curve as the share of renewable energy in the mix increases: the higher the share of renewable energy, the steeper the residual load duration curve \cite{Ueckerdt2015}. Thus, following the ADVANCE project "Variable Renewable Energy integration module" framework (\cite{Ueckerdt2017}), the residual peak load becomes a function of the VRE gross generation:
 
 \begin{dmath}
-    {peak\_res_{k}} = f(Gross\_wind\_share_{k},Gross\_pv\_share_{k})
+    {peak\_res_{k}}(t) = f(Gross\_wind\_share_{k}(t),Gross\_pv\_share_{k}(t))
     \label{eqn:peakres}
 \end{dmath}
 with the $f$ a third-order polynom (see Annex for the polynomial coefficients).
 
 
-This way, $base\_res$ and $peak\_res$ are now determined by Equations \ref{eqn:peakres} and \ref{eqn:elecQres}: Equation \ref{eqn:elecBpRatio} no longer holds. However, Equations \ref{eqn:peakres} and \ref{eqn:elecQres} do not prevent negative residual baseload. Thus, Equation \ref{eqn:elecQres} includes the possibility to adapt if solving the system of equations \ref{eqn:peakres} and \ref{eqn:elecQres} yields negative residual baseload. If for  $nb\_steps$ = 6 (starting case), the residual baseload is negative, the 8760h load band is removed, and the system of equations \ref{eqn:peakres} and \ref{eqn:elecQres} is solved again with one less load band, as shown on Figure \ref{fig:RLDCapprox}. This way, the residual load curve is always positive and conserves its properties\footnote{A version of the residual load duration curve design with a miminum load band (\cite{Ueckerdt2015}) (continuous supply from dispatchable plants throughout the year) is currently under study}.
+This way, $base\_res$ and $peak\_res$ are now determined by Equations \ref{eqn:peakres} and \ref{eqn:elecQres}: Equation \ref{eqn:elecBpRatio} no longer holds. However, Equations \ref{eqn:peakres} and \ref{eqn:elecQres} do not prevent negative residual baseload. Thus, Equation \ref{eqn:elecQres} includes the possibility to adapt if solving the system of equations \ref{eqn:peakres} and \ref{eqn:elecQres} yields negative residual baseload. If for  $nb\_steps$ = 6 (starting case), the residual baseload is negative, the 8760h load band is removed, and the system of equations \ref{eqn:peakres} and \ref{eqn:elecQres} is solved again with one less load band, as shown on Figure \ref{fig:RLDCapprox}. It implies that the conventionnal capacity does not provide a minimum power throughout the year. This way, the residual load curve is always positive and conserves its properties. A version of the residual load duration curve design with a miminum load band (\cite{Ueckerdt2015}) (continuous supply from dispatchable plants throughout the year) is currently under developement.
 
 % adapted from doi: 10.1016/j.renene.2014.08.065 
 
 \begin{dmath}
-    Q\_elec\_res_k =
-    {peak\_res_k} * 730 +
-    {base\_res_k} * {lower\_load\_bands_k} +
-    \frac{peak\_res_k - base\_res_k}{nb\_steps_k} * ( \sum inner\_load\_bands_k)
+    Q\_elec\_res_k(t) =
+    {peak\_res_k}(t) * 730 +
+    {base\_res_k}(t) * {lower\_load\_bands_k} +
+    \frac{peak\_res_k(t) - base\_res_k(t)}{nb\_steps_k} * ( \sum inner\_load\_bands_k)
     \label{eqn:elecQres}
 \end{dmath}
 
@@ -168,17 +168,17 @@ This way, $base\_res$ and $peak\_res$ are now determined by Equations \ref{eqn:p
 The residual peak load and the net share (without curtailment) of non-VRE generation in total demand depend on the gross VRE generation. Additionally, the ADVANCE project module was also used to calibrate 1) VRE curtailment and storage losses 2) storage capacity and output as a function of the share of solar PV and wind energy in the mix, the same way the residual peak load does (see equation \ref{eqn:peakres}).
 
 \begin{dmath}
-    {curt_{k}} = g(Gross\_wind\_share_{k},Gross\_pv\_share_{k})
+    {curt_{k}}(t) = g(Gross\_wind\_share_{k}(t),Gross\_pv\_share_{k}(t))
     \label{eqn:curt}
 \end{dmath}
 
 \begin{dmath}
-    {stor\_cap_{k}} = h(Gross\_wind\_share_{k},Gross\_pv\_share_{k})
+    {stor\_cap_{k}}(t) = h(Gross\_wind\_share_{k}(t),Gross\_pv\_share_{k}(t))
     \label{eqn:stor_cap}
 \end{dmath}
 
 \begin{dmath}
-    {stor\_output_{k}} = m(Gross\_wind\_share_{k},Gross\_pv\_share_{k})
+    {stor\_output_{k}}(t) = m(Gross\_wind\_share_{k}(t),Gross\_pv\_share_{k}(t))
     \label{eqn:stor_out}
 \end{dmath}
 
@@ -193,76 +193,84 @@ The residual peak load and the net share (without curtailment) of non-VRE genera
     \label{fig:RLDCapprox}
 \end{figure}
 
-In the end, this residual load duration curve design allows representing VRE integration challenges in a compact electricity module such as IMACLIM-R's by relying on the highly resolved Dispatch and Investment Model for Electricity Storage (DIMES)  outputs. Basically, it allows the electricity sector of IMACLIM-R to include the impact of variable renewable energy on the electricity system in a simple, yet robust manner. It captures key mechanisms behind the variable renewable energy penetration challenge and yields consistent results (see Figure X in Annex).
+In the end, this residual load duration curve design allows representing VRE integration challenges in a compact electricity module such as IMACLIM-R's by relying on the highly resolved Dispatch and Investment Model for Electricity Storage (DIMES)  outputs. Basically, it allows the electricity sector of IMACLIM-R to include the impact of variable renewable energy on the electricity system in a simple, yet robust manner. It captures key mechanisms behind the variable renewable energy penetration challenge and yields consistent projections (see section 7).
 
 \paragraph*{Storage.}
-For now, only short-term storage is represented in the electricity nexus: storage capacity, outputs and losses are extracted from the DIMES output (see equation \ref{eqn:stor_cap} and \ref{eqn:stor_out}) and DIMES only optimizes short-term storage. Thus, seasonal (long-term) storage is not included yet in the electricity nexus.
+For now, only short-term storage is represented in the electricity nexus: storage capacity, outputs and losses are extracted from the DIMES output (see equation \ref{eqn:stor_cap} and \ref{eqn:stor_out}) and DIMES only optimizes short-term storage. Thus, seasonal (long-term) storage is not included yet in the electricity nexus. An explicit representation of storage capacity needs and ouputs is currently under developement.
 
 \part*{Modeling investment and dispatch decisions}
 
 \section{Optimal planning of investments under imperfect foresight}
 
-With the compact representation of power generation technologies and the (residual) load duration curve presented above, we have the necessary technical details to model investment decisions in the power sector on an annual basis.
-The investment decision can be described as a cost minimization procedure under imperfect foresight to meet future electricity demand under technological constraint. At each time step, the central planner of the electricity sector selects an ideal electricity mix to meet the projected demand at the short-term horizon (ten years by default), from which an annual investment plan is derived.
-The decision procedure is decomposed into five successive steps:
+With the compact representation of power generation technologies and the (residual) load duration curve presented above, we posses the necessary technical details to model investment decisions in the power sector on an annual basis.
+A way to interpret the modeling of the investment decision in the IMACLIM-R framework is the following : the investment decision mimics the behavior of competitive electricity markets supplying a future anticipated demand under imperfect foresight. The optimal capacity to meet the anticipated demand at a medium horizon (t+10 by default) is then compared to the existing capacity to derive the annual investment schedule.
+The final investment decision is decomposed into five successive steps:
 \begin{enumerate}
     \item Formulating expectations about future demand and future fuel prices;
     \item Choosing  wind turbine and solar PV  electricity production capacity;
     \item Choosing hydroelectric production capacity;
     \item Projecting the optimal conventional (non-renewable) production capacity to meet domestic demand;
-    \item Deciding on the annual investment increase necessary to move the existing production capacity towards the optimal capacity that has just been calculated
+    \item Deciding on the annual investment necessary to move the existing production capacity towards the optimal capacity that has just been calculated
 \end{enumerate}
 
-Separating the treatment of VRE and hydroelectric energy is justified by the specificities of these energy sources. A more detailed explanation of these specificities is given below.
+Separating the treatment of VRE and hydroelectric power is justified by the specificities of these energy sources. A more detailed explanation of these specificities is given below.
 
-\paragraph{Projecting demand and anticipating fuel prices}
+\paragraph{Projected demand, fuel prices and carbon tax}
 
 The optimal installed capacity and level of annual investments are determined using backward-looking expectations of electricity demand growth and  future fossil fuels prices over the coming ten years.
 
-The projected electricity demand for the period $t+10$ in region $k$, written $Q\_elec_k^{anticip}$ (in $MWh$), is computed assuming an arithmetic growth of future demand, with $Q\_elec_k$ (resp. $Q\_elec\_prev\_k$) the secondary electricity demand of period $t-1$ (resp. $t-2$)  : 
+The projected electricity demand for the period $t+10$ in region $k$, written $Q\_elec_k^{anticip}$(t) (in $MWh$), is computed assuming an arithmetic growth of future demand, with $Q\_elec_k$ (resp. $Q\_elec\_prev\_k$) the secondary electricity demand of period $t-1$ (resp. $t-2$)  : 
 
 \begin{dmath}
-    Q\_elec_k^{anticip} = Q\_elec_k + (Q\_elec_k - Q\_elec\_prev\_k)*10
+    Q\_elec_k^{anticip}(t) = Q\_elec_k(t) + (Q\_elec_k(t) - Q\_elec\_prev_k(t))*10
     \label{eqn:elecQAnticip}
 \end{dmath}
 
 Expected electricity demand addressed to conventional (non-renewable) power plants is associated with an anticipated residual load duration curve which is determined using the results from the resolution of the equation system \ref{eqn:peakres}-\ref{eqn:elecQres}.
 
-Regarding fossil fuel prices, we stick to a myopic expectation hypothesis: current prices are taken as anticipated future prices. We thus suppose that facing the uncertainty of short-term fluctuations in fossil resources prices, electricity producers take current prices as the best available information. 
-Regarding the carbon tax on fossil fuels, the IMACLIM-R rationale allows for different beliefs regarding climate policy actions. In the baseline scenario, the carbon tax trajectory is fully deterministic, highly predictable, and trustworthy. However, it is possible to allow for divergent beliefs among actors about the future carbon price, depending on the level of confidence in climate policy.
+Current fossil fuel prices are taken as anticipated future prices. Thus, we suppose that facing the uncertainty of short-term fluctuations in fossil resources prices, electricity producers take current prices as the best available information. 
+Regarding the carbon tax on fossil fuels, the IMACLIM-R rationale allows for different beliefs regarding climate policy actions. By default, the carbon tax trajectory is not known. The current carbon tax is projected over the electricity generation project's lifetime to compute its LCOE. Therefore, the current carbon tax is the main instrument of the climate policy. However, it is possible to allow for :
+\begin{itemize}
+    \item alternative regimes of expectations, $e.g.$ perfect foresight on the carbon tax trajectory. This case is presented in Annex.
+\end{itemize} divergent beliefs among actors about the future carbon tax, depending on the level of confidence in climate policy. These divergent beliefs could even be endogenized in future model developments
 
-\paragraph{Determining investments in non-hydroelectric renewable production capacity}
+\paragraph{Determining investments in non-hydroelectric renewable production capacity.}
 
-The investment process in IMACLIM-R for both renewable and non-renewable technologies relies on a modified multinomial logit (or modified logit) framework. This choice function is used to describe the market shares on competitive electricity markets (\cite{Clarke1993}). It accounts for the fact that technologies that are not the best option due to high average costs still produce electricity because they remain the cheapest option at a given time of day. It also captures the fact that the cheapest option does not displace the more expensive technologies in the electricity market in the presence of uncertainty, incomplete information, energy security concerns, etc. 
+The investment decision in IMACLIM-R for both renewable and non-renewable technologies relies on a modified multinomial logit (or modified logit) framework. This choice function is used to describe the market shares on competitive electricity markets (\cite{Clarke1993}). It accounts for the fact that technologies which are not the best option due to high average costs still produce electricity because they remain the cheapest option at a given time of day. It also captures the fact that the cheapest option does not displace the more expensive technologies in the electricity market in the presence of uncertainty, incomplete information, energy security concerns, etc. 
 The modified multinomial logit choice function takes as input a vector of LCOE (referred to in the logit framework as the choice indicator) and returns a vector of market shares for the corresponding alternatives.  The random term is assumed to follow a Weibull distribution, hence the market share $S_{k,i}$ for the technology $i$ in region $k$ given by equation \ref{eqn:MMLFVRE}:
 With $\gamma$ the logit exponent, $LCOE_{i}$ the Levelized Cost of Electricity, $\alpha_{k,i}$ the share weight of technology i and $N$ the number of technological options.
 We also assume that the central planner in the electricity market selects the market share for a medium-term horizon (ten years) based on the current cost of the technologies.
 
 
 \begin{dmath}
-    S_{k,i} = \frac{\alpha_{k,}*LCOE_{k,i}^{\gamma}}{\sum_{j=1}^{N} \alpha_{k,j}*LCOE_{k,j}^{\gamma}}
+    S_{k,i}(t) = \frac{\alpha_{k,}*LCOE_{k,i}^{\gamma}(t)}{\sum_{j=1}^{N} \alpha_{k,j}*LCOE_{k,j}^{\gamma}(t)}
     \label{eqn:MMLFVRE}
 \end{dmath}
 
 In the electricity sector of IMACLIM-R, a first logit nest determines the share of variable renewables (wind and solar PV) and the aggregate share of non-variable renewables in total electricity generation. The market share for each non-variable renewable energy is determined by a second logit nest.
 The choice indicator for the aggregated dispatchable plants’ share is the lowest LCOE on baseload
-\footnote{Technologies with limited potential due to resource endowment constraints (hydro, CSP) or social acceptance (nuclear) were excluded from the non-variable renewables choice indicator.}. The weight shares $\alpha_{k,i}$ are calibrated to reproduce 2019 observed market shares for the four VRE technologies (wind onshore, wind offshore, central PV and rooftop PV) and progress thereafter towards equal weighting. Thus, we assume that all non-LCOE factors driving VRE deployment (financial support like feed-in tariffs, national preferences etc.) are declining. Electricity generation technologies end by competing solely based on their economic costs.
+\footnote{Technologies with limited potential due to resource endowment constraints (hydro, CSP) or social acceptance (nuclear) were excluded from the non-variable renewables choice indicator.}. The weight shares $\alpha_{k,i}$ are calibrated to reproduce 2018 observed market shares for the four VRE technologies (wind onshore, wind offshore, central PV and rooftop PV) and progress thereafter towards equal weighting. Thus, we assume that all non-LCOE factors driving VRE deployment (financial support like feed-in tariffs, national preferences etc.) are declining, electricity generation technologies ending by competing solely based on their economic costs.
 
 The sum of the VRE market shares yields the share of net VRE generation ($share\_VRE\_endo_k$) in the total expected electricity demand ($Q\_elec\_anticip\_tot_k$)  in region k. The remaining (residual) demand ($Q\_elec_\_anticip_k$) must be met with dispatchable power plants, including hydropower, CSP and conventional thermal power plant:
 
 \begin{dmath}
-    Q\_elec\_anticip_k = Q\_elec\_anticip\_tot_k*(1 - share\_VRE\_endo_{k})
+    Q\_elec\_anticip_k(t) = Q\_elec\_anticip\_tot_k(t*(1 - share\_VRE\_endo_{k}(t))
     \label{eqn:Q_elec}
 \end{dmath}
 
-As shown in Figure Y, the first logit nest determines the global share of variable renewables from which the residual electricity demand for dispatchable capacity is derived. Once the residual load duration curve is approximated, dispatchable technologies compete for each load band in the second logit nest. That is described later in the "Conventional Installed Generation Capacity" paragraph
+As shown in Figure \ref{fig:suminv}, the first logit nest determines the global share of variable renewables from which the residual electricity demand for dispatchable capacity is derived. Once the residual load duration curve is approximated, dispatchable technologies compete for each load band in the second logit nest.
+
+\begin{figure}[H]
+    \centerline{\includegraphics[scale=0.45]{figures&tables/Summary_nexus.png}} %not bad for centering!!
+    \caption{Summary of the investment procedure in the electricity sector}
+    \label{fig:suminv}
+\end{figure}
 
 
 \paragraph{Investment in hydroelectricity}
 
-Hydropower is treated in a special way because investment in this technology depends both on its relative profitability and on the  geographical locations available.
+Hydropower is treated in a special way because investment in this technology is contrained by the regional physical potential.
 In this module, we make no distinction between run-of-river and conventional (dammed) hydropower plants. Therefore, investments in hydropower plants in this module are exogenous and comes from the POLES model (citation ici).
-As for the residual load duration curve, hydropower is assumed to be deployed first due to near-zero variable costs, so hydropower supplies electricity first in the lower load bands first.
 
 
 \paragraph{Conventional installed production capacity}
@@ -283,12 +291,13 @@ $LCOE_{H}$ includes:
     \item the fixed total discounted operation and maintenance costs per kWh installed
     \item the variable total discounted operation and maintenance costs per kWh produced
     \item the total discounted fuel costs, calculated using the final price scenarios of the anticipated fossil energies.
-    \item  the availability factor
+    \item  the availability factor, which incorporates planned outages and maintenance
+    \item the cost of capital which serves as a proxy for the discount factor
 \end{itemize}
 
 
 
-Thus, market share for each load band is derived through a second modified multinomial logit nest, in which only dispatchable power plants compete. After removing hydropower production from the  lower bands of the residual load curve, the module can determine the required installed capacity of conventional power technologies to meet the t+10 anticipated electricity demand by summing up the desired capacity for each load band.
+Thus, market share for each load band is derived through a second modified multinomial logit nest, in which only dispatchable power plants compete. Hydropower production is withdrawn from the  lower bands of the residual load curve because hydro investment is autonomous and hydropower is dispatched first ($i.e$ on lower load bands) due to very low variable costs. The module can determine the required installed capacity of conventional power technologies available for investment to meet the t+10 anticipated electricity demand by summing up the desired capacity for each load band.
 
 %\paragraph{Capacity markets}
 
@@ -296,13 +305,26 @@ Thus, market share for each load band is derived through a second modified multi
 
 \paragraph{Final investment: minimizing the distance between the optimal production capacity and the installed capacity}
 
-The procedure described in the previous subsection allows us to define at each date t the optimal anticipated production capacity for the period $t+10$. Between t and $t+10$ an investment plan determines the yearly capacity additions needed to reach the optimal $t+10$ capacity.
+The procedure described in the previous subsection allows us to define at each period $t$  the optimal anticipated production capacity for the period $t+10$. Between t and $t+10$ an investment plan determines the yearly capacity additions needed to reach the optimal $t+10$ capacity.
 
-In the present version of the model, it is not possible to either remove certain production capacity before the end of their lifetime or modify the technologies embodied in the installed plants, $ie$ there is no early decommissioning or retrofitting. We thus treat the inertia of the equipment and technologies as if they are utilized for their full lifetime.
+In the present version of the model, it is not possible to either remove certain production capacity before the end of their lifetime or modify the technologies embodied in the installed plants, $i.e.$ there is no early decommissioning or retrofitting. We thus treat the inertia of the equipment and technologies as if they are utilized for their full lifetime.
 
-Moreover, investments in the electricity sector are constrained by the availability of capital, like any other sector of IMACLIM-R. The composition of the actual investment made, written $Inv\_elec\_MW_{k,TECH}$, is obtained by solving the program that minimizes the distance between optimal investment and available capital. Renewable investment needs are prioritized in our framework.
-These investments generate a new generation of capital that marginally changes the composition of installed power generation capacity for the next static equilibrium. The figure \ref{fig:suminv} summarizes the investment process of the power sector of IMACLIM-R, from the ideal power mix at time $t+10$ to the annual capacity additions.
+Moreover, investments in the electricity sector are constrained by the availability of capital, like any other sector of IMACLIM-R. The composition of the actual investment made, written $Inv\_elec\_MW_{k,TECH}$, is obtained by solving the program that minimizes the distance between optimal investment and available capital. Renewable investment needs are prioritized over conventionnal capacity additions if the available capital cannot satisfy both..
+To avoid capacity oversizing, an additional constraint is added to investment in the form of a residual peak load coverage maximum. The residual peak load coverage serves as a mesure of grid reliability.
+
+
+If the existing dispatchable capacity covers residual peak load over a coverage target, the final investment will be reduced with regard to the investment determined by the matching between the residual load duration curve and optimal market shares from the modified multinomial logit nest. This prevents the electricity module to overinvest in conventionnal capacity even if the current capacity is sufficient to supply the residual demand. Such situation would occur in a case of sudden fuel switching, $e.g$ coal generation becoming periodically cheaper than gas generation, leading to investing in both coal and gas capacity to meet base load. Note that the final investment always represents a non-negative share of the optimal investment, $i.e$ $y_{min} > 0$. Variable Renewable Energies and CCS are excluded from the investment constraint.
+
+\begin{figure}[H]
+    \centerline{\includegraphics[scale=1]{figures&tables/peak_load_cov.png}} %not bad for centering!!
+    \caption{Constraint on investment - residual peak load coverage}
+    \label{fig:peakcov}
+\end{figure}
+
+These investments create a new generation of capital that marginally changes the composition of installed power capacity for the next static equilibrium. The figure \ref{fig:suminv} summarizes the investment process of the power sector of IMACLIM-R, from the ideal power mix at time $t+10$ to the annual capacity additions.
 Based on this newly installed generation capacity and the depreciated capital, the current electricity demand can be met.
+
+
 
 
 \section{Dispatch decision in a compact electricity module}
@@ -315,15 +337,15 @@ Based on this newly installed generation capacity and the depreciated capital, t
 
 %Next, the central planner tries to minimize the variable production cost  to match the residual load. The dispatch occurs according to the merit order of dispatchable technologies.
 Once the characteristics of the installed operating capacity for the current period of the model are known, the equilibrium between electricity demand and supply can be found.
-Since the model solves the equilibrium in the electricity market annually, the dispatch decision also relies on the (residual) load duration curves. The renewable power production at time $t$ is subtracted from the total demand.
+Since the model solves the equilibrium in the electricity market annually, the dispatch decision also relies on (residual) load duration curves. The renewable power production at time $t$ is subtracted from the total demand because it is non-dispatchable.
 The use of the non-renewable power generation capacity to meet the residual demand is done according to the merit order of the technologies.
-In practice, this means that for each load band (starting with the lower band), the technology with the lowest variable production cost is used:
+In practice, this means that for each load band (starting with the lower band), the technology with the lowest variable production cost is used until:
 
 %be clearer here? does not seem to be cristal clear, maybe some equations could do the job to represent the availability factor
 
 \begin{itemize}
-    \item either the power called for exceeds the available production capacity for this technology and the next cheapest installed production capacity is exploited to obtain the additional power,
-    \item or the available production capacity of this technology exceed the power demanded for this load duration and the remaining available production capacity will be used to answer demand associated with the load duration that is immediately inferior.
+    \item the power called for exceeds the available production capacity for this technology and the next cheapest installed production capacity is exploited to obtain the additional power or,
+    \item the available production capacity of this technology exceed the power demanded for this load duration and the remaining available production capacity will be used to answer demand associated with the load duration that is immediately inferior.
 \end{itemize}
 
 \begin{figure}[H]
@@ -333,7 +355,7 @@ In practice, this means that for each load band (starting with the lower band), 
 \end{figure}
 
 
-This production cost minimization program allows associating an average annual utilization period (in hours) in each region $k$ and for each technology. For conventional technologies, the utilization rate (the average functioning time of the installed capacity over the 8760 hours of the year) cannot exceed the availability factor. When this occurs for some technologies (e.g. coal units would run 100\% of the time according to the dispatch procedure, while their availability factor is 85\%), we introduce an available capacity variable to account for outages and maintenance, and perform the dispatch again as shown on Figure \ref{fig:avail}.
+This production cost minimization program allows associating an average annual utilization period (in hours) in each region $k$ and for each technology. For conventional technologies, the utilization rate (the average functioning time of the installed capacity over the 8760 hours of the year) cannot exceed the availability factor. When this occurs for some technologies (e.g. coal units would operate 100\% of the time according to the dispatch procedure, while their availability factor is 85\%), we introduce an available capacity variable to account for outages and maintenance, and perform the dispatch again as shown on Figure \ref{fig:avail}.
 
 \part*{Understanding the role of the electricity sector in a hybrid integrated assessment model: macroeconomic linkage and long term projections}
 
@@ -373,7 +395,15 @@ and the electricity price is given by :
 $Cap_{k}$ evolves with electrical power capacity additions.
 \end{itemize}
 
+The marginal cost of generating electricity forms the aggregate supply curve of the electricity sector used in the static equilibrium to balance supply and demand. It encapsulates information from the investment and dispatch decisions throughout three elements : the profit markup covering investment costs, the input-output coefficients reflecting the dispatch choices, the potential production depending on the existing capacity. 
 
+Figure \ref{fig:sumacro} summarises the link between macroeconomic, static equilibriums and the two electricity submodules, investment and dispatch.
+
+\begin{figure}[H]
+    \centerline{\includegraphics[scale=0.5]{figures&tables/summacro.png}}
+    \caption{Summary of the link between macroeconomic static equilibrium and the dynamic submodules of the electricity nexus}
+    \label{fig:sumacro}
+\end{figure}
 
 
 \section{Long-term projections for regional power systems}
