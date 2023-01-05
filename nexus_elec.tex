@@ -1,12 +1,12 @@
 \section{Introduction}
 %rewrite intro
-Climate change mitigation goals require profound changes in socioeconomic production systems. This is especially true for the power system (electricity and heat production), which is responsible for 15.5 Gt of CO2 emissions in 2021, or 43\% of energy-related CO2 emissions (\cite{IEA2021}). Emissions fact, emissions from the electricity generation sector come from the combustion of fossil resources, namely coal, oil, and gas, in existing power plants. It is now well established that achieving ambitious decarbonization targets requires a rapid phase-out of fossil fuel combustion. However, given the inertia of capital in this sector (power plants are expected to operate for decades), today's option for power generation is determined by the capacity built in the past. Therefore, an accurate representation of power capacity addition decisions is key to capturing current and future electricity system developments needed to address climate change.
+Climate change mitigation goals require profound changes in socioeconomic production systems. This is especially true for the power system (electricity and heat production), which is responsible for 15.5 Gt of CO2 emissions in 2021, or 43\% of energy-related CO2 emissions (\cite{IEA2021}). Emissions from the electricity generation sector come from the combustion of fossil resources, namely coal, oil, and gas, in existing power plants. It is now well established that achieving ambitious decarbonization targets requires a rapid phase-out of fossil fuel combustion. However, given the inertia of capital in this sector (power plants are expected to operate for decades), today's option for power generation is determined by the capacity built in the past. Therefore, an accurate representation of power capacity addition decisions is key to capturing current and future electricity system developments needed to address climate change.
 
 
-Ultimately, representing the key features of electricity systems imposes that two types of decisions made under techno-economic constraints are considered
+Ultimately, representing the key features of electricity systems imposes that two types of decisions made under techno-economic constraints are considered:
 \begin{enumerate}
-    \item the long-term choice of optimal capacity to meet future electricity demand
-    \item the short-term choice of capacity utilization to meet current load (dispatch).
+    \item the long-term choice of optimal capacity to match future electricity demand
+    \item the short-term choice of capacity utilization to supply current load (dispatch).
 \end{enumerate}
 The investment and dispatch decisions are covered in separated submodules of the electricity module (or electricity nexus) of IMACLIM-R. Note that in our framework the electricity sector refers to the sector in the macroeconomic core of IMACLIM-R, while the electricity module or nexus designate its dynamic, bottom-up counterpart.
 
@@ -19,7 +19,7 @@ More details about the modeling framework of the investment and dispatch decisio
 \paragraph{ Cost assumptions and technical change in the electricity sector.} In the current version of IMACLIM-R, 20 technologies are available for investment in power generation. Each of the 20 technologies is characterized by a set of techno-economic parameters that can be used to calculate the levelized cost of electricity (LCOE). These parameters include: investment costs, energy efficiency, fixed and variable operation and maintenance costs, an availability factor for dispatchable technologies (in \% of full load hours), a capacity factor for non-dispatchable technologies (in \% of full load hours), lifetimes, and a discount rate that includes both the opportunity cost of capital and a unique risk factor for each technology (Briera and Lefèvre, forthcoming).
 
 The techno-economic parameters for each technology are calibrated using sectoral technology models or information from the literature (\cite{IEA2020}, \cite{IRENA2020})
-For immature technologies, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, minimum costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (each region benefits from the capacity additions of the others), but the initial and asymptotic costs remain differentiated. This decision is justified by two findings: 1) Wind turbines and PV modules are traded as commodities. 2)capital costs differ by location due to national or regional circumstances, such as labor costs. With $CINV \textunderscore MW\textunderscore nexus\textunderscore {k,j}(t)$ the current investment cost for technology $j$ in region $k$ at time $t$, $CINV\textunderscore MW\textunderscore nexus \textunderscore ref_{k,j}$, the reference investment cost (at calibration year), $A\textunderscore CINV\textunderscore MW\textunderscore ITC\textunderscore ref_{k,j}$ the floor cost,  $LR\textunderscore ITC\textunderscore elec_{j}$ the learning rate, $Cum\textunderscore Inv\textunderscore MW_ elec_ ref_{k,j}$ the cumulated investment of technology $j$ in region $k$ at calibration year, $Cum\textunderscore Inv\textunderscore MW\textunderscore elec_{k,j}(t)$ the cumulated investment at time $t$:
+For immature technologies, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, minimum costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (each region benefits from the capacity additions of the others), but the initial and asymptotic costs remain differentiated. This decision is justified by two findings: 1) wind turbines and PV modules are traded as commodities. 2) capital costs differ by location due to national or regional circumstances, such as labor costs. With $CINV \textunderscore MW\textunderscore nexus\textunderscore {k,j}(t)$ the current investment cost for technology $j$ in region $k$ at time $t$, $CINV\textunderscore MW\textunderscore nexus \textunderscore ref_{k,j}$, the reference investment cost (at calibration year), $A\textunderscore CINV\textunderscore MW\textunderscore ITC\textunderscore ref_{k,j}$ the floor cost,  $LR\textunderscore ITC\textunderscore elec_{j}$ the learning rate, $Cum\textunderscore Inv\textunderscore MW_ elec_ ref_{k,j}$ the cumulated investment of technology $j$ in region $k$ at calibration year, $Cum\textunderscore Inv\textunderscore MW\textunderscore elec_{k,j}(t)$ the cumulated investment at time $t$:
 
 \begin{dmath}
     CINV\_MW\_nexus_{k,j}(t) = max(A\_CINV\_MW\_ITC\_ref_{k,j},CINV\_MW\_nexus \_ref_{k,j}*(1-LR\_ ITC\_elec_{j})^{log(\frac{Cum\_Inv\_MW\_elec_{k,j}(t)}{Cum\_Inv\_MW_elec_ ref_{k,j}})})
@@ -28,12 +28,12 @@ For immature technologies, costs decrease over time through a global learning pr
 
 As the cost of renewable energy has declined recently, the CAPEX and OPEX curves for wind and solar (including CSP) are driven to adjust to recently observed levels in the region. This means that the decline in renewable energy costs between 2014 and 2019 is monitored and not driven by the learning curve.
 
-\paragraph{ Carbon Capture and Storage.}
-The electricity nexus of IMACLIM-R includes both fossil fuel carbon capture and storage (CCS) and bioenergy with CCS (BECCS) technologies. In the current version of the model, CCS for power generation technologies does not enter the R\&D phase until a threshold for the current regional carbon price is reached to prevent early CCS deployment despite low or negative profitability. The market share of each CCS technology is limited by an S-shaped technology development function. In the case of BECCS, an additional biomass supply curve (\cite{Hoogwijk2009}) limits the deployment of this technology. In the current structure of IMACLIM-R, BECCS are the only source of negative emissions. Therefore, the pace of BECCS deployment is critical in very low-carbon/net-zero mitigation pathways. Fossil fuel technologies may not be retrofitted with CCS, so new power plants must be built to capture and store carbon.
+\paragraph{Carbon Capture and Storage.}
+The electricity nexus of IMACLIM-R includes both fossil fuel carbon capture and storage (CCS) and bioenergy with CCS (BECCS) technologies. In the current version of the model, CCS for power generation technologies does not enter the R\&D phase until a threshold for the current regional carbon price is reached to prevent early CCS deployment despite low or negative profitability. The market share of each CCS technology is limited by an S-shaped technology development function. In the case of BECCS, an additional biomass supply curve  limits the deployment of this technology (\cite{Hoogwijk2009}). In the current structure of IMACLIM-R, BECCS are the only source of negative emissions. Therefore, the pace of BECCS deployment is critical in very low-carbon/net-zero mitigation pathways. Fossil fuel technologies may not be retrofitted with CCS, so new power plants must be built to capture and store carbon. Retrofitting and early decomissionning will be added in future versions of the model.
 
 
-\paragraph{ Capital inertia.}
-In the electricity sector, the capital stock is path-dependent, as each investment at time t adds to the capacity built in previous periods. The variable $Cap\textunderscore elec\textunderscore MW \textunderscore vintage_{k,j}(t)$ tracks annual capacity additions for technology $j$ in region $k$. Thus, the depreciated capital at time $t$ is the sum of the generations of capital that reach the end of their lives from time $t - lifetime$ to $t - 1$. Adding the new investments to the depreciated capital stock at time t gives the functioning capital at time t before the new capacity addition from the investments.
+\paragraph{Capital inertia.}
+In the electricity sector, the capital stock is path-dependent, as each investment at time t adds to the capacity built in previous periods. The variable $Cap\textunderscore elec\textunderscore MW \textunderscore vintage_{k,j}(t)$ tracks annual capacity additions for technology $j$ in region $k$. Thus, the depreciated capital at time $t$ is the sum of the generations of capital that reach the end of their lives from time $t - lifetime$ to $t - 1$ $(Cap\textunderscore elec\textunderscore MW\textunderscore dep_{k,j}(t)$ in Equation \ref{eqn:Cap_elec_dep}). Adding the new investments to the depreciated capital stock at time t gives the functioning capital at time t before the new capacity addition from the investments.
 \begin{dmath}
     Cap\_elec\_ MW\_vintage_{k,j}(t) = Inv\_MW_{k,j}(t)
     \label{eqn:Cap_elec_vintage}
@@ -55,7 +55,7 @@ In the electricity sector, the capital stock is path-dependent, as each investme
 At each time step of the model, the average characteristics of installed production capacity are the weighted average of the technical characteristics of the different generations of power plants still in operation.
 The inertia of the power plant capacity is represented by tracking the capital over the generations together with their technical characteristics.
 
-Each year, the production units that reach the end of their life are decommissioned.
+Every year, the production units that reach the end of their life are decommissioned.
 If we add the annual capacity additions $i.e.$ investments, we get a net installed capacity.
 
 The new generation of capital capacity and its technical characteristics are determined by the investment decisions described in the following sections.
@@ -63,12 +63,13 @@ The new generation of capital capacity and its technical characteristics are det
 
 \paragraph{Final energy demand in IMACLIM-R.}
 
-In IMACLIM-R, final energy demand results from three (meta)sectors: the productive sectors, the transport sector, and the residential sector. For the transport and the residential sectors, which benefit from detailed bottom-up representations, the use of electricity depends on explicit technology choices, $e.g.$, buying electric cars instead of thermal cars. In the case of productive sectors (agriculture, industry, construction, composite goods), electricity demand is determined by input-output coefficients.
+In IMACLIM-R, final energy demand results from three (meta-) sectors: the productive sectors, the transport sector, and the residential sector. For the transport and the residential sectors, which benefit from detailed bottom-up representations, the use of electricity depends on explicit technology choices, $e.g.$, buying electric cars instead of thermal cars. In the case of productive sectors (agriculture, industry, construction, composite goods), electricity demand is determined by input-output coefficients.
 
 \paragraph{The load duration curve.}
 
-In order to model investments in the electricity sector in a stylized way $i.e$., without coupling the macroeconomic core of IMACLIM-R with a high-resolution energy model, it is common to combine the daily load curves over the 365 days of the year into a single curve called the load duration curve.
-The load duration curve is obtained by plotting the hourly load values over the year against the duration for which that load was requested. The highest recorded load over the 8760 hours of the year is called the peak load. The minimum power supplied over the year is the base load. In this way, the balance between electricity demand and supply can be resolved annually.
+
+Tt is common to combine the daily load curves over the 365 days of the year into a single curve called the load duration curve. It aggregates information about the size and utilization rate of the capacity needed to match the demand throughout the year.
+The load duration curve is obtained by plotting the hourly load values over the year against the duration for which that load was requested. The highest recorded load over the 8760 hours of the year is called the peak load. The minimum power supplied over the year is the base load. Thus, the balance between electricity demand and supply can be resolved annually using load duration curve. It allows not relying on an external high-resolution energy model, but it also has its pitfalls, especially in terms of information losses in intraday processes such as short-term storage. These limitations are overcome by integrating additional bottum-up data into the nexus (see subsection "The Residual Load Duration Curve and the challenges to VRE integration").
 
 The shape of the load duration curve is specific to each region, as it is directly related to the temporal variability of electricity demand. This variability depends in particular on the seasonal climate variations in the region
 For numerical simplicity, the regional load duration curves were approximated by segmented linear functions:
@@ -194,6 +195,9 @@ In the end, this residual load duration curve design allows representing VRE int
 \paragraph*{Storage.}
 For now, only short-term storage is represented in the electricity nexus: storage capacity, outputs and losses are extracted from the DIMES output (see equation \ref{eqn:stor_cap} and \ref{eqn:stor_out}) and DIMES only optimizes short-term storage. Thus, seasonal (long-term) storage is not included yet in the electricity nexus. An explicit representation of storage capacity needs and ouputs is currently under developement.
 
+\paragraph*{Grid and Transmissions and Distribution Losses.}
+
+Investments in grid infrastructures are not modeled in the electricity module of IMACLIM-R. The extra needs related to VRE deployment are included in the VRE markup. Transmissions and Distribution (T\&D) losses are included in the form of an intra electricity sector input-output coefficient, expressing T\&D losses as a share of total electricity output.
 \part*{Modeling investment and dispatch decisions}
 
 \section{Optimal planning of investments under imperfect foresight}
@@ -211,11 +215,11 @@ The final investment decision is decomposed into five successive steps:
 
 The separate treatment of VRE and hydropower is justified by the special characteristics of these energy sources. A more detailed explanation of these peculiarities is provided below.
 
-\paragraph{Projected demand, fuel prices and carbon tax}
+\paragraph{Projected demand, fuel prices and carbon tax.}
 
 The optimal installed capacity and level of annual investments are determined using backward-looking expectations of electricity demand growth and  future fossil fuels prices over the coming ten years.
 
-The projected electricity demand for the period $t+10$ in region $k$, written $Q\_elec_k^{anticip}$(t) (in $MWh$), is computed assuming an arithmetic growth of future demand, with $Q\_elec_k$ (resp. $Q\_elec\_prev\_k$) the secondary electricity demand of period $t-1$ (resp. $t-2$)  : 
+The projected electricity demand for the period $t+10$ in region $k$, written $Q\_elec_k^{anticip}$(t) (in $MWh$), is computed assuming an arithmetic growth of future demand, with $Q\_elec_k$ (resp. $Q\_elec\_prev\_k$) the final electricity demand of period $t-1$ (resp. $t-2$)  : 
 
 \begin{dmath}
     Q\_elec_k^{anticip}(t) = Q\_elec_k(t) + (Q\_elec_k(t) - Q\_elec\_prev_k(t))*10
@@ -228,7 +232,8 @@ Current fossil fuel prices are taken as anticipated future prices. Thus, we assu
 Regarding the carbon tax on fossil fuels, the IMACLIM-R rationale allows for different beliefs regarding climate policies. By default, the trajectory of the carbon tax is not known. The current carbon tax is projected over the lifetime of the power generation project to calculate its LCOE. Therefore, the current carbon tax is the main climate policy tool. However, it is possible to allow for :
 \begin{itemize}
     \item alternative regimes of expectations, $e.g.$ perfect foresight on the carbon tax trajectory. This case is presented in Annex.
-\end{itemize} divergent beliefs among actors about the future carbon tax, depending on the level of confidence in climate policy. These divergent beliefs could even be endogenized in future model developments
+    \item divergent beliefs among actors about the future carbon tax, depending on the level of confidence in climate policy. These divergent beliefs could even be endogenized in future model developments
+\end{itemize} 
 
 \paragraph{Determining investments in non-hydroelectric renewable production capacity.}
 
@@ -406,31 +411,61 @@ In this section, we briefly present the key electricity nexus outputs from 2015 
 
 \newpage
 \section{Annex}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics{figures&tables/dispatch.png}
-    \caption{The merit order mechanism}
-    \label{fig:dispatch}
-\end{figure}
+%%%%%% 
+% Removed these figure/table , pretty useless
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics{figures&tables/dispatch.png}
+ %   \caption{The merit order mechanism}
+ %   \label{fig:dispatch}
+%\end{figure}
 
 %the coef are given in the following order: (Intercept),Wind_share,PV_share,Wind_share_sq,PV_share_sq,Wind_share_cb,PV_share_cb,Wind_share:PV_share,PV_share:Wind_share_sq,Wind_share:PV_share_sq
-    \begin{table}[H]
-        \centering
-        \begin{tabular}{|c||c|c|c|c|}
-            \hline
-                  & 1   & $x$ & $y$ \\
-                  \hline
-                  \hline
-            1     &0.98&      & -1.003\\
-            \hline
-            $x$   & -0.242  &       & -1.653 \\
-                  \hline
-            $x^2$ & - 0.23    &  0.130     & 1.243 \\
-            \hline
-            $y^2$ &  0.945   &   1.224    &-0.422 \\
-                  \hline
-                  \hline
-        \end{tabular}
-        \caption{ coefficients for the $peak_{res}$ function (USA)}
-    \end{table}
+%    \begin{table}[H]
+%        \centering
+%        \begin{tabular}{|c||c|c|c|c|}
+%            \hline
+%                  & 1   & $x$ & $y$ \\
+%                  \hline
+%                  \hline
+%            1     &0.98&      & -1.003\\
+%            \hline
+%            $x$   & -0.242  &       & -1.653 \\
+%                  \hline
+%            $x^2$ & - 0.23    &  0.130     & 1.243 \\
+%            \hline
+%            $y^2$ &  0.945   &   1.224    &-0.422 \\
+%                  \hline
+%                  \hline
+%        \end{tabular}
+%        \caption{ coefficients for the $peak_{res}$ function (USA)}
+%    \end{table}
+
+\begin{landscape}
+\subsection{Technical and economic assumptions for electricity generation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CINV_MW_ref : CAPEX
+\input{figures&tables/CINV_MW_ref.tex}
+
+% O&M_fix : fixed O&M
+\input{figures&tables/OM_fix.tex}
+
+% O&M_var : variable O&M
+
+\input{figures&tables/OM_var.tex}
+
+% Rho : energy efficiency
+\input{figures&tables/rho_export.tex}
+
+% avail_load : available/load factors
+\input{figures&tables/avail_load.tex}
+
+% Life_time : Lifetimes
+\input{figures&tables/Life_time.tex}
+
+% LR_export : learning rates
+\input{figures&tables/LR_export.tex}
+
+\end{landscape}
