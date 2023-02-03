@@ -25,8 +25,10 @@ data_path <- paste0(dir,"/data")
 ###########################
 
 combi <- "001"
+### All variables
 var_list <- c("rho_export","LR_export","avail_load","OM_var","OM_fix","Life_time","CINV_MW_ref")
-var_list_reg <- c("rho_export","avail_load","OM_var","OM_fix","Life_time","CINV_MW_ref")
+### Variables with regional diff : removed lifetime and learning rate
+var_list_reg <- c("rho_export","avail_load","OM_var","OM_fix","CINV_MW_ref")
 
 techno_list <- c("PFC","PSS","ICG","CGS","SUB","USC","UCS","GGT","GGS","GGC","OCT","OGC","HYD","NUC","NND","CSP","CHP","SHY","WND","WNO","CPV","RPV","BF2","BGT","BIGCC","BIGCCS")
 techno_unused <- c("NND","CHP","SHY","BF2","BGT")
