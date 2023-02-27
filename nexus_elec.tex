@@ -373,7 +373,7 @@ and the electricity price is given by :
 
 \begin{dmath}
     p_{k} = \sum_{j}{}pIC_{j,k}*IC_{j,k} + (\Omega_{k}*w_{k})*l_{k}*(1+tax_{k}^{w}) + \pi_{k} * p_{k}
-    \label{eqn:Cm}
+    \label{eqn:p}
 \end{dmath}
 \begin{itemize}
     \item The technical unitary coefficients of production which characterize the electricity sector (quantities of different fuels required to produce a unit of electricity) are determined for coal, gas and liquid fuels ($tech = [coal,gas,et]$) by equation \ref{eqn:IC}.
@@ -404,14 +404,40 @@ Figure \ref{fig:sumacro} summarises the link between macroeconomic, static equil
 
 
 \section{Long-term projections for regional power systems}
-In this section, we present the main electricity nexus outputs from 2015 to 2100 in two scenarios : a Nationally Determined Contribution scenario, following COMMIT project results (\cite{VanSoest2021}) and a 2°C scenario (1000 GT CO2 budget, 2020-2100).
+In this section, we present the main electricity nexus outputs from 2015 to 2100 in two scenarios : a Nationally Determined Contribution scenario, following COMMIT project results (\cite{VanSoest2021}) and a 2°C scenario (1000 GT CO2 budget, 2020-2100). To limit global warming at +2°C by the end of the century, a carbon tax is implemented, starting at 50\$ per ton of CO2 emission in 2020 and reaching 1500\$ per ton in 2100.
 
 \begin{figure}[H]
     \centerline{\includegraphics[scale=0.5]{figures&tables/Prod_doc.png}}
-    \caption{}
+    \caption{World electricity generation by source, NDC (left) and 2°C (right) scenarios}
     \label{fig:Prod}
 \end{figure}
 
+\begin{figure}[H]
+    \centerline{\includegraphics[scale=0.5]{figures&tables/Msh_doc.png}}
+    \caption{World electricity market share by source, NDC (left) and 2°C (right) scenarios}
+    \label{fig:Msh}
+\end{figure}
+
+\begin{figure}[H]
+\centerline{\includegraphics[scale=0.5]{figures&tables/Cap_doc.png}}
+    \caption{World installed capacity by source, NDC (left) and 2°C (right) scenarios}
+    \label{fig:Cap}
+\end{figure}
+
+\begin{figure}[H]
+    \centerline{\includegraphics[scale=0.4]{figures&tables/Msh_reg_doc_ndc.png}}
+    \caption{World electricity market share by source, NDC scenario}
+    \label{fig:Msh_reg_ndc}
+\end{figure}
+
+\begin{figure}[H]
+    \centerline{\includegraphics[scale=0.4]{figures&tables/Msh_reg_doc_2Deg.png}}
+    \caption{World electricity market share by source, 2°C scenario}
+    \label{fig:Msh_reg_2deg}
+\end{figure}
+
+
+    
 
 % graph 1 : total generation in Twh/EJ
 %\begin{figure}[H]
