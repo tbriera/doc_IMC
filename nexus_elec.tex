@@ -20,10 +20,10 @@ Below, one will learn more about the modeling framework for investment and dispa
 \paragraph {Cost assumptions and technical change in the electricity sector.} In the current version of IMACLIM-R, 20 technologies are available for investment in electricity generation. Each of the 20 technologies is characterized by a set of techno-economic parameters that can be used to calculate the levelized cost of electricity (LCOE). These parameters include: Investment costs, energy efficiency, fixed and variable operation and maintenance costs, an availability factor for dispatchable technologies (in \% of full load hours), a capacity factor for non-dispatchable technologies (in \% of full load hours), lifetimes, and a discount rate that includes both the opportunity cost of capital and a unique risk factor for each technology (Briera and Lefèvre, in prep.).
 
 The techno-economic parameters for each technology are calibrated using sectoral technology models or information from the literature (\cite{IEA2020}, \cite{IRENA2020})
-For immature technologies, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, minimum costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (each region benefits from the capacity additions of the others), but the initial and asymptotic costs remain differentiated. This decision is justified by two findings: 1) wind turbines and PV modules are traded as commodities. 2) capital costs varies by location due to national or regional circumstances, such as labor costs. With $CINV_{k,j,t}$ the current investment cost for technology $j$ in region $k$ at time $t$, $CINV$\textunderscore $ref_{k,j}$, the reference investment cost (at calibration year), $A$\textunderscore$CINV$\textunderscore$ref_{k,j}$ the floor cost, $LR_{j}$ the learning rate, $Cum$\textunderscore$Inv$\textunderscore$ref_{k,j}$ the cumulative investment of technology $j$ in region $k$ in the calibration year, $Cum$\textunderscore $Inv_{k,j,t}$ the cumulative investment at time $t$:
+For immature technologies, costs decrease over time through a global learning process modeled by learning curves (\cite{Neij2008}). Learning curves link production costs to cumulative production through a learning coefficient. In the case of the electricity sector, the cost of electricity production is expected to decrease with cumulative installed capacity for a given technology. In the base year of the model (2014), all regions in the IMACLIM-R model start with different cost assumptions. In addition, minimum costs are defined in each region: these are the lowest costs that can be achieved through a learning process. As a result, the learning process is global (each region benefits from the capacity additions of the others), but the initial and asymptotic costs remain differentiated. This decision is justified by two findings: 1) wind turbines and PV modules are traded as commodities. 2) capital costs varies by location due to national or regional circumstances, such as labor costs. With $CINV_{k,j}(t)$ the current investment cost for technology $j$ in region $k$ at time $t$, $CINV$\textunderscore $ref_{k,j}$, the reference investment cost (at calibration year), $A$\textunderscore$CINV$\textunderscore$ref_{k,j}$ the floor cost, $LR_{j}$ the learning rate, $Cum$\textunderscore$Inv$\textunderscore$ref_{k,j}$ the cumulative investment of technology $j$ in region $k$ in the calibration year, $Cum$\textunderscore $Inv_{k,j}(t)$ the cumulative investment at time $t$:
 
 \begin{dmath}
-    CINV_{k,j,t} = max(A\_CINV \_ ref_{k,j}, CINV\_ref_{k,j}*(1-LR_{j})^{log(\frac{Cum\_Inv_{k,j,t}}{Cum\_Inv\_ ref_{k,j}})})
+    CINV_{k,j}(t) = max(A\_CINV \_ ref_{k,j}, CINV\_ref_{k,j}*(1-LR_{j})^{log(\frac{Cum\_Inv_{k,j}(t)}{Cum\_Inv\_ ref_{k,j}})})
     \label{eqn:LR}
 \end{dmath}
 
@@ -34,19 +34,19 @@ The electricity nexus of IMACLIM-R includes both fossil fuel carbon capture and 
 
 
 \paragraph{Capital inertia.}
-In the electricity sector, the capital stock is path-dependent, as each investment at time t adds to the capacity built in previous periods. The variable $Cap$ \textunderscore $vintage_{k,j,t}$ tracks annual capacity additions for technology $j$ in region $k$. Thus, the depreciated capital at time $t$ is the sum of the generations of capital that reach the end of their lives from time $t - lifetime$ to $t - 1$ $(Cap$\textunderscore$dep_{k,j,t}$ in Equation \ref{eqn:Cap_elec_dep}). Adding the new investments to the depreciated capital stock at time t gives the functioning capital at time t before the new capacity addition from the investments.
+In the electricity sector, the capital stock is path-dependent, as each investment at time t adds to the capacity built in previous periods. The variable $Cap$ \textunderscore $vintage_{k,j}(t)$ tracks annual capacity additions for technology $j$ in region $k$. Thus, the depreciated capital at time $t$ is the sum of the generations of capital that reach the end of their lives from time $t - lifetime$ to $t - 1$ $(Cap$\textunderscore$dep_{k,j}(t)$ in Equation \ref{eqn:Cap_elec_dep}). Adding the new investments to the depreciated capital stock at time t gives the functioning capital at time t before the new capacity addition from the investments.
 \begin{dmath}
-    Cap\_vintage_{k,j}(t) = Inv_{k,j,t}
+    Cap\_vintage_{k,j}(t) = Inv_{k,j}(t)
     \label{eqn:Cap_elec_vintage}
 \end{dmath}
 
 \begin{dmath}
-    Cap \_ dep_{k,j,t} = \sum_{i = t - lifetime_{k}}^{t-1}Cap\_vintage_{k,j,i}
+    Cap \_ dep_{k,j}(t) = \sum_{i = t - lifetime_{k}}^{t-1}Cap\_vintage_{k,j}(i)
     \label{eqn:Cap_elec_dep}
 \end{dmath}
 
 \begin{dmath}
-    Cap_{k,j,t} = Cap\_dep_{k,j,t} + Inv_{k,j}(t)
+    Cap_{k,j}(t) = Cap\_dep_{k,j}(t) + Inv_{k,j}(t)
     \label{eqn:Cap_elec}
 \end{dmath}
 
@@ -437,88 +437,5 @@ In this section, we present the main electricity nexus outputs from 2015 to 2100
 \end{figure}
 
 
-    
-
-% graph 1 : total generation in Twh/EJ
-%\begin{figure}[H]
-%    \centering
-%    \subfloat[\centering NDC]{{\includegraphics[scale=0.15]{figures&tables/Prod_doc_2deg.png} }}%
-%    \qquad
- %   \subfloat[\centering 2°C]{{\includegraphics[scale=0.15]{figures&tables/Prod_doc_2deg.png} }}%
- %   \caption{2 Figures side by side}%
- %   \label{fig:example}%
-%\end{figure}
-
-% graph 2 (stacked bar chart) : installed capacity in 2020 - 2030 -  2050 - 2070 - 2100, almost OK
-
-% graph 3 : electricity prices with classic outputviz script
-
-\newpage
-\section{Annex}
-%%%%%% 
-% Removed these figure/table , pretty useless
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics{figures&tables/dispatch.png}
- %   \caption{The merit order mechanism}
- %   \label{fig:dispatch}
-%\end{figure}
-
-%the coef are given in the following order: (Intercept),Wind_share,PV_share,Wind_share_sq,PV_share_sq,Wind_share_cb,PV_share_cb,Wind_share:PV_share,PV_share:Wind_share_sq,Wind_share:PV_share_sq
-%    \begin{table}[H]
-%        \centering
-%        \begin{tabular}{|c||c|c|c|c|}
-%            \hline
-%                  & 1   & $x$ & $y$ \\
-%                  \hline
-%                  \hline
-%            1     &0.98&      & -1.003\\
-%            \hline
-%            $x$   & -0.242  &       & -1.653 \\
-%                  \hline
-%            $x^2$ & - 0.23    &  0.130     & 1.243 \\
-%            \hline
-%            $y^2$ &  0.945   &   1.224    &-0.422 \\
-%                  \hline
-%                  \hline
-%        \end{tabular}
-%        \caption{ coefficients for the $peak_{res}$ function (USA)}
-%    \end{table}
-
-\begin{landscape}
-\subsection{Technical and economic assumptions for electricity generation}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CINV_MW_ref : CAPEX
-
-%%% Data with no/sensible source
-%% Old POLES data: OCT, OGC
-\input{figures&tables/CINV_MW_ref.tex}
-
-% O&M_fix : fixed O&M
-%% Old POLES data : OCT, OGC, HYD
-\input{figures&tables/OM_fix.tex}
 
 
-% O&M_var : variable O&M
-%% Hyp for OCT and OGC == GGT and GGC
-\input{figures&tables/OM_var.tex}
-
-% Rho : energy efficiency
-%%  old POLES data : OCT, OGC
-\input{figures&tables/rho_export.tex}
-
-
-% avail_load : available/load factors
-%% hydro : POLES data, author's calculation
-\input{figures&tables/avail_load.tex}
-
-% Life_time : Lifetimes
-%% Old POLES data : OCT, OGC
-\input{figures&tables/Life_time.tex}
-
-% LR_export : learning rates
-\input{figures&tables/LR_export.tex}
-
-\end{landscape}

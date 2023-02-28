@@ -1,0 +1,58 @@
+
+\begin{landscape}
+    \section{Annex}
+\subsection{Technical and economic assumptions for electricity generation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CINV_MW_ref : CAPEX
+
+%%% Data with no/sensible source
+%% Old POLES data: OCT, OGC
+\input{figures&tables/CINV_MW_ref.tex}
+
+% O&M_fix : fixed O&M
+%% Old POLES data : OCT, OGC, HYD
+\input{figures&tables/OM_fix.tex}
+
+
+% O&M_var : variable O&M
+%% Hyp for OCT and OGC == GGT and GGC
+\input{figures&tables/OM_var.tex}
+
+% Rho : energy efficiency
+%%  old POLES data : OCT, OGC
+\input{figures&tables/rho_export.tex}
+
+
+% avail_load : available/load factors
+%% hydro : POLES data, author's calculation
+\input{figures&tables/avail_load.tex}
+
+% Life_time : Lifetimes
+%% Old POLES data : OCT, OGC
+\input{figures&tables/Life_time.tex}
+
+% LR_export : learning rates
+\input{figures&tables/LR_export.tex}
+
+\subsection{Sensibility analysis : logit exponent}
+
+Figure X shows the electricity market share for variable renewable energy sources (solar and wind, including CSP) under different values for the $\gamma$ parameter corresponding to the exponent of the first logit nest (\ref{fig:suminv}). The value used by default in IMACLIM-R is $\gamma = 3$. 
+
+\begin{figure}[H]
+    \centerline{\includegraphics[scale=0.5]{figures&tables/logit_MSH.png}}
+    \caption{Regional disaggregation of IMACLIM-R model,  } 
+    \label{fig:sensiblog}
+\end{figure}
+
+\end{landscape}
+
+
+\subsection{Regional disaggregation}
+
+\begin{figure}[H]
+    \centerline{\includegraphics[scale=0.6]{figures&tables/Reg_IMC.png}}
+    \caption{Regional disaggregation of IMACLIM-R model, \cite{Bibas2016} } 
+    \label{fig:disag}
+\end{figure}
